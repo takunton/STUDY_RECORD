@@ -130,7 +130,7 @@ def update_user(user_id: int, db: Session = Depends(get_db)):
     return db_user
 
 @app.get("/learning-content", response_model=List[schemas.LearningContentBase])
-def get_all_user(db: Session = Depends(get_db)):
+def get_learning_content(db: Session = Depends(get_db)):
     db_learning_contents = crud.get_all_learning_content(db=db)
     if db_learning_contents is None:
         raise HTTPException(status_code=404, detail="LearningContent not found")

@@ -15,8 +15,8 @@ class User(Base):
 # äwèKì‡óe
 class LearningContent(Base):
     __tablename__ = "learning_content"
-    learning_content_id = sa.Column(
-        "learning_content_id", sa.Integer, primary_key=True, autoincrement=True
+    id = sa.Column(
+        "id", sa.Integer, primary_key=True, autoincrement=True
     )
     seq = sa.Column("seq", sa.Integer, nullable=False)
     content_name = sa.Column("content_name", sa.Text, nullable=False)

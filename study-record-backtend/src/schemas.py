@@ -42,7 +42,7 @@ class UserDelete(UserBase):
     
 # ŠwK“à—e
 class LearningContentBase(BaseModel):
-    learning_content_id: int
+    id: int
     seq: int
     content_name: str
 
