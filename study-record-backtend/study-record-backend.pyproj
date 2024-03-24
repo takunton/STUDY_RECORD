@@ -23,6 +23,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="src\alembic\env.py" />
+    <Compile Include="src\alembic\versions\17883d42373c_create_users_table.py" />
+    <Compile Include="src\crud.py" />
     <Compile Include="src\schemas.py" />
     <Compile Include="src\models.py" />
     <Compile Include="src\database.py" />
@@ -33,12 +35,14 @@
     <Folder Include="src\" />
     <Folder Include="src\alembic\" />
     <Folder Include="src\alembic\versions\" />
+    <Folder Include="src\alembic\versions\__pycache__\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".env" />
     <Content Include="src\alembic.ini" />
     <Content Include="src\alembic\README" />
     <Content Include="src\alembic\script.py.mako" />
+    <Content Include="src\alembic\versions\__pycache__\17883d42373c_create_users_table.cpython-311.pyc" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
