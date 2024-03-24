@@ -22,14 +22,23 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="src\alembic\env.py" />
+    <Compile Include="src\schemas.py" />
+    <Compile Include="src\models.py" />
+    <Compile Include="src\database.py" />
     <Compile Include="src\client.py" />
     <Compile Include="src\main.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\" />
+    <Folder Include="src\alembic\" />
+    <Folder Include="src\alembic\versions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".env" />
+    <Content Include="src\alembic.ini" />
+    <Content Include="src\alembic\README" />
+    <Content Include="src\alembic\script.py.mako" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
