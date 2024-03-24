@@ -23,6 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="src\alembic\env.py" />
+    <Compile Include="src\alembic\versions\13a12de84cbb_create_learning_content_table.py" />
     <Compile Include="src\alembic\versions\17883d42373c_create_users_table.py" />
     <Compile Include="src\crud.py" />
     <Compile Include="src\schemas.py" />

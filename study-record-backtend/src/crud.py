@@ -40,3 +40,8 @@ def delete_user(db: Session, user_id: int):
         db.delete(user_obj)
         db.commit()
     return user_obj
+
+
+# データベース内全てのデータを取り出す。
+def get_all_learning_content(db: Session):
+    return db.query(models.LearningContent).all()

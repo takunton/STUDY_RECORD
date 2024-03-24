@@ -23,7 +23,7 @@ app.add_middleware(
 )
 
 
-@app.get("/learning-content")
+@app.get("/learning-content-sample")
 def read_learning_content():
     learing_content = [
         {"id": "LearningContent_1", "seq": 101, "contentName": "サンプル1"},
@@ -91,7 +91,7 @@ def read_record():
     ]
     return records
 
-
+# ユーザー
 @app.get("/user/{user_id}", response_model=schemas.UserPublic)
 def get_user(user_id: int, db: Session = Depends(get_db)):
     db_user = crud.get_user(db=db, user_id=user_id)
@@ -128,3 +128,10 @@ def update_user(user_id: int, db: Session = Depends(get_db)):
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
+
+@app.get("/learning-content", response_model=List[schemas.LearningContentBase])
+def get_all_user(db: Session = Depends(get_db)):
+    db_learning_contents = crud.get_all_learning_content(db=db)
+    if db_learning_contents is None:
+        raise HTTPException(status_code=404, detail="LearningContent not found")
+    return db_learning_contents
