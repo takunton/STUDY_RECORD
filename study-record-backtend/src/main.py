@@ -171,7 +171,6 @@ def get_record(db: Session = Depends(get_db)):
         record = schemas.RecordBase(
             id=db_record.id,
             date=db_record.date,
-            learning_content_id=db_record.learning_content_id,
             learning_content=learning_content_model,
             time=db_record.time,
         )

@@ -41,7 +41,9 @@ export const RecordModal = (props: Props) => {
   // stateの初期化
   useEffect(() => {
     setDate(selectedRecord ? selectedRecord.date : "");
-    setLearningContent(selectedRecord ? selectedRecord.LearningContent.id : "");
+    setLearningContent(
+      selectedRecord ? selectedRecord.learning_content.id : ""
+    );
     setTime(selectedRecord ? selectedRecord.time : 0);
   }, [selectedRecord]);
 

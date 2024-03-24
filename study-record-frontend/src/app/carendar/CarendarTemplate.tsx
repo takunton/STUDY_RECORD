@@ -31,7 +31,7 @@ export const CarendarTemplate = () => {
   // 記録リストをeventオブジェクトに変換
   const events: EventSourceInput = records.map((record) => ({
     id: record.id,
-    title: `${record.time} ${record.LearningContent.content_name}`,
+    title: `${record.time} ${record.learning_content.content_name}`,
     start: record.date,
   }));
 
