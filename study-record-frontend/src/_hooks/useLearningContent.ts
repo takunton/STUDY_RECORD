@@ -1,15 +1,27 @@
+import { useEffect, useState } from "react";
 import { LearningContent } from "../_types/LearningContent";
-
-const content_sample: LearningContent[] = [
-  { id: "LearningContent_1", seq: 101, contentName: "サンプル1" },
-  { id: "LearningContent_2", seq: 102, contentName: "サンプル2" },
-  { id: "LearningContent_3", seq: 103, contentName: "サンプル3" },
-  { id: "LearningContent_4", seq: 104, contentName: "サンプル4" },
-  { id: "LearningContent_5", seq: 105, contentName: "サンプル5" },
-];
+import axios from "axios";
 
 export function useLearningContent() {
-  const learningContents = content_sample; // TODO: API呼び出し
+  const [learningContents, seLearningContents] = useState<LearningContent[]>(
+    []
+  );
 
+  // state初期化
+  useEffect(() => {
+    const getLearningContents = () => {
+      axios
+        .get<Array<LearningContent>>("http://127.0.0.1:8000/learning-content")
+        .then((res) => {
+          console.debug(res);
+          seLearningContents(res.data);
+        })
+        .catch((error) => {
+          console.debug("データの取得に失敗しました:", error);
+        });
+    };
+
+    getLearningContents();
+  }, []);
   return { learningContents };
 }

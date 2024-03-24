@@ -25,7 +25,7 @@ def read_learning_content():
         {"id": "LearningContent_4", "seq": 104, "contentName": "サンプル4"},
         {"id": "LearningContent_5", "seq": 105, "contentName": "サンプル5"},
     ]
-    return {"data": learing_content}
+    return learing_content
 
 @app.get("/record")
 def read_record():
