@@ -94,7 +94,7 @@ export const RecordModal = (props: Props) => {
               >
                 {learningContents.map((learningContent) => (
                   <option value={learningContent.id}>
-                    {learningContent.contentName}
+                    {learningContent.content_name}
                   </option>
                 ))}
               </Select>

@@ -73,7 +73,7 @@ export const LearningContentTemplate = () => {
             {learningContents.map((learningContent) => (
               <Tr>
                 <Td>{learningContent.seq}</Td>
-                <Td>{learningContent.contentName}</Td>
+                <Td>{learningContent.content_name}</Td>
                 <Td>
                   <PrimaryButton
                     onClick={() => onClickUpdate(learningContent.id)}
@@ -111,7 +111,7 @@ export const LearningContentTemplate = () => {
                 <FormLabel>内容</FormLabel>
                 <Input
                   onChange={() => {}}
-                  value={selectedLearningContent?.contentName}
+                  value={selectedLearningContent?.content_name}
                 />
               </FormControl>
             </Stack>
