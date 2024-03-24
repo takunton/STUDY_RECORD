@@ -1,3 +1,4 @@
+from datetime import date
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
@@ -35,7 +36,7 @@ def read_learning_content():
     return learing_content
 
 
-@app.get("/record")
+@app.get("/record-sample")
 def read_record():
     records = [
         {
@@ -91,6 +92,7 @@ def read_record():
     ]
     return records
 
+
 # ユーザー
 @app.get("/user/{user_id}", response_model=schemas.UserPublic)
 def get_user(user_id: int, db: Session = Depends(get_db)):
@@ -129,9 +131,50 @@ def update_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
+
 @app.get("/learning-content", response_model=List[schemas.LearningContentBase])
 def get_learning_content(db: Session = Depends(get_db)):
     db_learning_contents = crud.get_all_learning_content(db=db)
     if db_learning_contents is None:
         raise HTTPException(status_code=404, detail="LearningContent not found")
     return db_learning_contents
+
+
+@app.get("/learning-content/{id}", response_model=schemas.LearningContentBase)
+def learning_content(id: int, db: Session = Depends(get_db)):
+    db_learning_content = crud.get_learning_content(db=db, id=id)
+    if db_learning_content is None:
+        raise HTTPException(status_code=404, detail="LearningContent not found")
+    return db_learning_content
+
+
+@app.get("/record", response_model=List[schemas.RecordBase])
+def get_record(db: Session = Depends(get_db)):
+    # Recordを取得
+    db_records = crud.get_all_record(db=db)
+    if db_records is None:
+        raise HTTPException(status_code=404, detail="Record not found")
+
+    # LearningContentを取得
+    records_with_content = []
+    for db_record in db_records:
+        learning_content = crud.get_learning_content(
+            db=db, id=db_record.learning_content_id
+        )
+
+        learning_content_model = schemas.LearningContentBase(
+            id=learning_content.id,
+            seq=learning_content.seq,
+            content_name=learning_content.content_name,
+        )
+
+        record = schemas.RecordBase(
+            id=db_record.id,
+            date=db_record.date,
+            learning_content_id=db_record.learning_content_id,
+            learning_content=learning_content_model,
+            time=db_record.time,
+        )
+        records_with_content.append(record)
+
+    return records_with_content

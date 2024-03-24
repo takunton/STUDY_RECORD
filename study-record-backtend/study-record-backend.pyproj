@@ -25,6 +25,7 @@
     <Compile Include="src\alembic\env.py" />
     <Compile Include="src\alembic\versions\17883d42373c_create_users_table.py" />
     <Compile Include="src\alembic\versions\3ececb711ee1_create_learning_content_table.py" />
+    <Compile Include="src\alembic\versions\26247b4f9f1e_create_record_table.py" />
     <Compile Include="src\crud.py" />
     <Compile Include="src\schemas.py" />
     <Compile Include="src\models.py" />

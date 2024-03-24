@@ -42,6 +42,14 @@ def delete_user(db: Session, user_id: int):
     return user_obj
 
 
-# データベース内全てのデータを取り出す。
+# learning_contentテーブル全てのデータを取り出す。
 def get_all_learning_content(db: Session):
     return db.query(models.LearningContent).all()
+
+# idからlearning_contentテーブルのデータを取り出す。
+def get_learning_content(db: Session, id: int):
+    return db.query(models.LearningContent).filter(models.LearningContent.id == id).first()
+
+# Recordテーブル全てのデータを取り出す。
+def get_all_record(db: Session):
+    return db.query(models.Record).all()

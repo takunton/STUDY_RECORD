@@ -48,3 +48,16 @@ class LearningContentBase(BaseModel):
 
     class Config:
         orm_mode = True
+
+# ‹L˜^
+class RecordBase(BaseModel):
+    id: int
+    date: str
+    learning_content_id: int
+    learning_content: Optional[LearningContentBase] 
+    time: int
+
+    class Config:
+        orm_mode = True
+
+

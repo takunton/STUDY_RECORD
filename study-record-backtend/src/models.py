@@ -20,3 +20,13 @@ class LearningContent(Base):
     )
     seq = sa.Column("seq", sa.Integer, nullable=False)
     content_name = sa.Column("content_name", sa.Text, nullable=False)
+
+# ‹L˜^
+class Record(Base):
+    __tablename__ = "record"
+    id = sa.Column(
+        "id", sa.Integer, primary_key=True, autoincrement=True
+    )
+    date = sa.Column("date", sa.Text, nullable=False)
+    learning_content_id = sa.Column("learning_content_id", sa.Integer, nullable=False)
+    time = sa.Column("seq", sa.Integer, nullable=False)
