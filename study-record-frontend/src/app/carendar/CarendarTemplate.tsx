@@ -30,8 +30,8 @@ export const CarendarTemplate = () => {
 
   // 記録リストをeventオブジェクトに変換
   const events: EventSourceInput = records.map((record) => ({
-    id: record.id,
-    title: `${record.time} ${record.learning_content.content_name}`,
+    id: String(record.id),
+    title: `${record.id}  ${record.time} ${record.learning_content.content_name}`,
     start: record.date,
   }));
 
@@ -55,7 +55,9 @@ export const CarendarTemplate = () => {
   // イベントクリック
   const eventClick = (arg: EventClickArg) => {
     setIsNew(false);
-    const targetRecord = records.find((record) => record.id === arg.event.id);
+    const targetRecord = records.find(
+      (record) => record.id === Number(arg.event.id)
+    );
     setSelectedRecord(targetRecord);
     console.debug(arg.event.id);
     console.debug(targetRecord);

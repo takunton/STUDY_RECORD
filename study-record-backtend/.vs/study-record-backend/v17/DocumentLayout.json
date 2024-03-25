@@ -3,28 +3,44 @@
   "WorkspaceRootPath": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\models.py||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|solutionrelative:src\\models.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\main.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|solutionrelative:src\\main.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\schemas.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|solutionrelative:src\\schemas.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\main.py||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|solutionrelative:src\\main.py||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\crud.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|solutionrelative:src\\crud.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\database.py||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|solutionrelative:src\\database.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\models.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|solutionrelative:src\\models.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\versions\\26247b4f9f1e_create_record_table.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|solutionrelative:src\\alembic\\versions\\26247b4f9f1e_create_record_table.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\versions\\af9e321033ad_alter_learning_content_table2.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\alembic\\versions\\af9e321033ad_alter_learning_content_table2.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\versions\\17883d42373c_create_users_table.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|solutionrelative:src\\alembic\\versions\\17883d42373c_create_users_table.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\versions\\b997b3bfecba_alter_learning_content_table.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\alembic\\versions\\b997b3bfecba_alter_learning_content_table.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\versions\\fccd8904e1d6_alter_learning_content_table.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\alembic\\versions\\fccd8904e1d6_alter_learning_content_table.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\database.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|solutionrelative:src\\database.py||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A7DF9EC0-0EF7-4017-9C95-472B044A46CC}|study-record-backend.pyproj|D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\env.py||{8B382828-6202-11D1-8870-0000F87579D2}",
@@ -50,7 +66,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,45 +74,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "crud.py",
-              "DocumentMoniker": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\crud.py",
-              "RelativeDocumentMoniker": "src\\crud.py",
-              "ToolTip": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\crud.py",
-              "RelativeToolTip": "src\\crud.py",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAACQAAAApAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
-              "WhenOpened": "2024-03-24T06:45:17.08Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "main.py",
               "DocumentMoniker": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\main.py",
               "RelativeDocumentMoniker": "src\\main.py",
               "ToolTip": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\main.py",
               "RelativeToolTip": "src\\main.py",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAHgAAAA8AAAA",
+              "ViewState": "AQIAAKgAAAAAAAAAAAAgwK0AAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
               "WhenOpened": "2024-03-24T00:55:40.467Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "env.py",
-              "DocumentMoniker": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\env.py",
-              "RelativeDocumentMoniker": "src\\alembic\\env.py",
-              "ToolTip": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\env.py",
-              "RelativeToolTip": "src\\alembic\\env.py",
-              "ViewState": "AQIAADcAAAAAAAAAAAAiwEUAAAAEAAAA",
+              "DocumentIndex": 4,
+              "Title": "26247b4f9f1e_create_record_table.py",
+              "DocumentMoniker": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\versions\\26247b4f9f1e_create_record_table.py",
+              "RelativeDocumentMoniker": "src\\alembic\\versions\\26247b4f9f1e_create_record_table.py",
+              "ToolTip": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\versions\\26247b4f9f1e_create_record_table.py",
+              "RelativeToolTip": "src\\alembic\\versions\\26247b4f9f1e_create_record_table.py",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
-              "WhenOpened": "2024-03-24T06:39:59.207Z"
+              "WhenOpened": "2024-03-24T12:26:34.539Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "alembic.ini",
               "DocumentMoniker": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic.ini",
               "RelativeDocumentMoniker": "src\\alembic.ini",
@@ -104,24 +108,25 @@
               "RelativeToolTip": "src\\alembic.ini",
               "ViewState": "AQIAACQAAAAAAAAAAAAAAD4AAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002768|",
-              "WhenOpened": "2024-03-24T06:39:38.771Z"
+              "WhenOpened": "2024-03-24T06:39:38.771Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "models.py",
               "DocumentMoniker": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\models.py",
               "RelativeDocumentMoniker": "src\\models.py",
               "ToolTip": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\models.py",
               "RelativeToolTip": "src\\models.py",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAxAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
               "WhenOpened": "2024-03-24T06:36:56.49Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "database.py",
               "DocumentMoniker": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\database.py",
               "RelativeDocumentMoniker": "src\\database.py",
@@ -134,7 +139,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": ".env",
               "DocumentMoniker": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\.env",
               "RelativeDocumentMoniker": ".env",
@@ -142,23 +147,38 @@
               "RelativeToolTip": ".env",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-03-24T06:34:54.401Z"
+              "WhenOpened": "2024-03-24T06:34:54.401Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "17883d42373c_create_users_table.py",
               "DocumentMoniker": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\versions\\17883d42373c_create_users_table.py",
               "RelativeDocumentMoniker": "src\\alembic\\versions\\17883d42373c_create_users_table.py",
               "ToolTip": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\versions\\17883d42373c_create_users_table.py",
               "RelativeToolTip": "src\\alembic\\versions\\17883d42373c_create_users_table.py",
-              "ViewState": "AQIAABIAAAAAAAAAAAAAACQAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
-              "WhenOpened": "2024-03-24T06:43:49.731Z"
+              "WhenOpened": "2024-03-24T06:43:49.731Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
+              "Title": "env.py",
+              "DocumentMoniker": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\env.py",
+              "RelativeDocumentMoniker": "src\\alembic\\env.py",
+              "ToolTip": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\env.py",
+              "RelativeToolTip": "src\\alembic\\env.py",
+              "ViewState": "AQIAADcAAAAAAAAAAAAiwEUAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2024-03-24T06:39:59.207Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "client.py",
               "DocumentMoniker": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\client.py",
               "RelativeDocumentMoniker": "src\\client.py",
@@ -166,7 +186,8 @@
               "RelativeToolTip": "src\\client.py",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
-              "WhenOpened": "2024-03-24T00:55:46.243Z"
+              "WhenOpened": "2024-03-24T00:55:46.243Z",
+              "EditorCaption": ""
             }
           ]
         },
@@ -180,11 +201,63 @@
               "Title": "schemas.py",
               "DocumentMoniker": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\schemas.py",
               "RelativeDocumentMoniker": "src\\schemas.py",
-              "ToolTip": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\schemas.py*",
-              "RelativeToolTip": "src\\schemas.py*",
-              "ViewState": "AQIAABMAAAAAAAAAAAAcwCsAAAAIAAAA",
+              "ToolTip": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\schemas.py",
+              "RelativeToolTip": "src\\schemas.py",
+              "ViewState": "AQIAADIAAAAAAAAAAAAgwDcAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
               "WhenOpened": "2024-03-24T06:37:17.559Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "af9e321033ad_alter_learning_content_table2.py",
+              "DocumentMoniker": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\versions\\af9e321033ad_alter_learning_content_table2.py",
+              "RelativeDocumentMoniker": "src\\alembic\\versions\\af9e321033ad_alter_learning_content_table2.py",
+              "ToolTip": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\versions\\af9e321033ad_alter_learning_content_table2.py",
+              "RelativeToolTip": "src\\alembic\\versions\\af9e321033ad_alter_learning_content_table2.py",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2024-03-24T09:16:14.903Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "b997b3bfecba_alter_learning_content_table.py",
+              "DocumentMoniker": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\versions\\b997b3bfecba_alter_learning_content_table.py",
+              "RelativeDocumentMoniker": "src\\alembic\\versions\\b997b3bfecba_alter_learning_content_table.py",
+              "ToolTip": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\versions\\b997b3bfecba_alter_learning_content_table.py",
+              "RelativeToolTip": "src\\alembic\\versions\\b997b3bfecba_alter_learning_content_table.py",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2024-03-24T09:13:24.973Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "crud.py",
+              "DocumentMoniker": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\crud.py",
+              "RelativeDocumentMoniker": "src\\crud.py",
+              "ToolTip": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\crud.py",
+              "RelativeToolTip": "src\\crud.py",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAACsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2024-03-24T06:45:17.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "fccd8904e1d6_alter_learning_content_table.py",
+              "DocumentMoniker": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\versions\\fccd8904e1d6_alter_learning_content_table.py",
+              "RelativeDocumentMoniker": "src\\alembic\\versions\\fccd8904e1d6_alter_learning_content_table.py",
+              "ToolTip": "D:\\00_Engineer\\90_tools\\STUDY-RECORD\\study-record-backtend\\src\\alembic\\versions\\fccd8904e1d6_alter_learning_content_table.py",
+              "RelativeToolTip": "src\\alembic\\versions\\fccd8904e1d6_alter_learning_content_table.py",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2024-03-24T09:16:49.703Z",
               "EditorCaption": ""
             }
           ]
