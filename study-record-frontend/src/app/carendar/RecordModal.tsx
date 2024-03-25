@@ -33,7 +33,7 @@ export const RecordModal = (props: Props) => {
   const [date, setDate] = useState<string>();
 
   // 内容
-  const [learningContent, setLearningContent] = useState<string>();
+  const [learningContent, setLearningContent] = useState<number>();
 
   // 時間
   const [time, setTime] = useState<number>();
@@ -41,9 +41,7 @@ export const RecordModal = (props: Props) => {
   // stateの初期化
   useEffect(() => {
     setDate(selectedRecord ? selectedRecord.date : "");
-    setLearningContent(
-      selectedRecord ? selectedRecord.learning_content.id : ""
-    );
+    setLearningContent(selectedRecord ? selectedRecord.learning_content.id : 0);
     setTime(selectedRecord ? selectedRecord.time : 0);
   }, [selectedRecord]);
 
@@ -55,7 +53,7 @@ export const RecordModal = (props: Props) => {
 
   // 内容テキスト変更
   function onChangeLearningContents(e: ChangeEvent<HTMLSelectElement>) {
-    setLearningContent(e.target.value);
+    setLearningContent(Number(e.target.value));
     console.debug(e.target.value);
   }
 

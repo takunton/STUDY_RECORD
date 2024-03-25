@@ -1,5 +1,5 @@
 export type LearningContent = {
-  id: string;
+  id: number;
   seq: number;
   content_name: string;
 };

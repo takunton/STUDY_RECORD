@@ -46,7 +46,7 @@ export const LearningContentTemplate = () => {
   }
 
   // 編集ボタン押下
-  function onClickUpdate(id: string) {
+  function onClickUpdate(id: number) {
     console.debug(id);
     setIsNew(false);
     const targetLearningContent = learningContents.find(
