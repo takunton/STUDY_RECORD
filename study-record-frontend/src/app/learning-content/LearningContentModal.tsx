@@ -15,57 +15,79 @@ import { PrimaryButton } from "../../_components/PrimaryButton";
 import { useLearningContent } from "../../_hooks/useLearningContent";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Record } from "../../_types/Record";
+import axios from "axios";
+import { LearningContent } from "../../_types/LearningContent";
 
 type Props = {
   isNew: boolean;
   isOpen: boolean;
-  selectedRecord: Record | undefined;
+  selectedLearningContent: LearningContent | undefined;
   onClose: () => void;
 };
 
-export const RecordModal = (props: Props) => {
-  const { isNew, isOpen, selectedRecord, onClose } = props;
+export const LearningContentModal = (props: Props) => {
+  const { isNew, isOpen, selectedLearningContent, onClose } = props;
 
-  // 内容リスト
-  const { learningContents } = useLearningContent();
+  // 表示順
+  const [seq, setSeq] = useState<number>(0);
 
-  // 日付
-  const [date, setDate] = useState<string>();
-
-  // 内容
-  const [learningContent, setLearningContent] = useState<number>();
-
-  // 時間
-  const [time, setTime] = useState<number>();
+  // 学習内容
+  const [contentName, setContentName] = useState<string>("");
 
   // stateの初期化
   useEffect(() => {
-    setDate(selectedRecord ? selectedRecord.date : "");
-    setLearningContent(selectedRecord ? selectedRecord.learning_content.id : 0);
-    setTime(selectedRecord ? selectedRecord.time : 0);
-  }, [selectedRecord]);
+    setSeq(selectedLearningContent ? selectedLearningContent.seq : 0);
+    setContentName(
+      selectedLearningContent ? selectedLearningContent.content_name : ""
+    );
+  }, [selectedLearningContent]);
 
-  // 日付テキスト変更
-  function onChangeDate(e: ChangeEvent<HTMLInputElement>) {
-    setDate(e.target.value);
-    console.debug(e.target.value);
-  }
-
-  // 内容テキスト変更
-  function onChangeLearningContents(e: ChangeEvent<HTMLSelectElement>) {
-    setLearningContent(Number(e.target.value));
-    console.debug(e.target.value);
-  }
-
-  // 時間テキスト変更
-  function onChangeTime(e: ChangeEvent<HTMLInputElement>) {
-    setTime(e.target.valueAsNumber);
+  // 表示順テキスト変更
+  function onChangeSeq(e: ChangeEvent<HTMLInputElement>) {
+    setSeq(Number(e.target.valueAsNumber));
     console.debug(e.target.valueAsNumber);
+  }
+
+  // 学習内容テキスト変更
+  function onChangeContentName(e: ChangeEvent<HTMLInputElement>) {
+    setContentName(e.target.value);
+    console.debug(e.target.value);
   }
 
   // 保存ボタン押下
   const onClickSave = () => {
-    alert(`"保存しました[日付=${date}, 内容=${learningContent}, 時間=${time}]`);
+    const learningContent: LearningContent = {
+      id: selectedLearningContent ? selectedLearningContent.id : 0,
+      seq: seq,
+      content_name: contentName,
+    };
+
+    if (isNew) {
+      axios
+        .post<LearningContent>(
+          "http://127.0.0.1:8000/learning-content/create",
+          learningContent
+        )
+        .then((res) => {
+          console.debug(res);
+        })
+        .catch((error) => {
+          console.debug("データの追加に失敗しました:", error);
+        });
+    } else {
+      axios
+        .post<LearningContent>(
+          "http://127.0.0.1:8000/learning-content/update",
+          learningContent
+        )
+        .then((res) => {
+          console.debug(res);
+        })
+        .catch((error) => {
+          console.debug("データの更新に失敗しました:", error);
+        });
+    }
+    alert(`"保存しました[表示順=${seq}, 学習内容=${contentName}]`);
     onClose();
   };
 
@@ -78,30 +100,18 @@ export const RecordModal = (props: Props) => {
     >
       <ModalOverlay />
       <ModalContent pb={2}>
-        <ModalHeader>{isNew ? "記録（追加）" : "記録（編集）"}</ModalHeader>
+        <ModalHeader>
+          {isNew ? "学習内容（追加）" : "学習内容（編集）"}
+        </ModalHeader>
         <ModalBody mx={4}>
           <Stack spacing={4}>
             <FormControl>
-              <FormLabel>日付</FormLabel>
-              <Input type="date" onChange={onChangeDate} value={date} />
+              <FormLabel>表示順</FormLabel>
+              <Input type="number" onChange={onChangeSeq} value={seq} />
             </FormControl>
             <FormControl>
               <FormLabel>内容</FormLabel>
-              <Select
-                onChange={onChangeLearningContents}
-                placeholder="選択してください"
-                value={learningContent}
-              >
-                {learningContents.map((learningContent) => (
-                  <option value={learningContent.id}>
-                    {learningContent.content_name}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl>
-              <FormLabel>時間</FormLabel>
-              <Input type="number" onChange={onChangeTime} value={time} />
+              <Input onChange={onChangeContentName} value={contentName} />
             </FormControl>
           </Stack>
         </ModalBody>

@@ -1,15 +1,4 @@
 import {
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Stack,
   Table,
   TableContainer,
   Tbody,
@@ -24,6 +13,7 @@ import { useState } from "react";
 import { useLearningContent } from "../../_hooks/useLearningContent";
 import { PrimaryButton } from "../../_components/PrimaryButton";
 import { LearningContent } from "../../_types/LearningContent";
+import { LearningContentModal } from "./LearningContentModal";
 
 export const LearningContentTemplate = () => {
   // 内容リスト
@@ -86,41 +76,12 @@ export const LearningContentTemplate = () => {
           </Tbody>
         </Table>
       </TableContainer>
-      <Modal
+      <LearningContentModal
+        isNew={isNew}
         isOpen={isOpen}
+        selectedLearningContent={selectedLearningContent}
         onClose={onClose}
-        autoFocus={false}
-        motionPreset="slideInTop"
-      >
-        <ModalOverlay />
-        <ModalContent pb={2}>
-          <ModalHeader>
-            {isNew ? "学習内容（追加）" : "学習内容（編集）"}
-          </ModalHeader>
-          <ModalBody mx={4}>
-            <Stack spacing={4}>
-              <FormControl>
-                <FormLabel>表示順</FormLabel>
-                <Input
-                  type="number"
-                  onChange={() => {}}
-                  value={selectedLearningContent?.seq}
-                />
-              </FormControl>
-              <FormControl>
-                <FormLabel>内容</FormLabel>
-                <Input
-                  onChange={() => {}}
-                  value={selectedLearningContent?.content_name}
-                />
-              </FormControl>
-            </Stack>
-          </ModalBody>
-          <ModalFooter>
-            <PrimaryButton onClick={() => {}}>保存</PrimaryButton>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      ></LearningContentModal>
     </>
   );
 };
