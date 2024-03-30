@@ -148,6 +148,25 @@ def learning_content(id: int, db: Session = Depends(get_db)):
     return db_learning_content
 
 
+@app.post("/learning-content/create")
+def create_learning_content(
+    learning_content: schemas.LearningContentBase, db: Session = Depends(get_db)
+):
+    db_learning_content = crud.create_learning_content(
+        db=db, learning_content=learning_content
+    )
+    return db_learning_content
+
+@app.post("/learning-content/update")
+def update_learning_content(
+    learning_content: schemas.LearningContentBase, db: Session = Depends(get_db)
+):
+    db_learning_content = crud.update_learning_content(
+        db=db, learning_content=learning_content
+    )
+    return db_learning_content
+
+
 @app.get("/record", response_model=List[schemas.RecordBase])
 def get_record(db: Session = Depends(get_db)):
     # Recordを取得
