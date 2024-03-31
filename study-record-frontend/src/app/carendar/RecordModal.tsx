@@ -15,6 +15,7 @@ import { PrimaryButton } from "../../_components/PrimaryButton";
 import { useLearningContent } from "../../_hooks/useLearningContent";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Record } from "../../_types/Record";
+import axios from "axios";
 
 type Props = {
   isNew: boolean;
@@ -30,18 +31,20 @@ export const RecordModal = (props: Props) => {
   const { learningContents } = useLearningContent();
 
   // 日付
-  const [date, setDate] = useState<string>();
+  const [date, setDate] = useState<string>("");
 
   // 内容
-  const [learningContent, setLearningContent] = useState<number>();
+  const [learningContentId, setLearningContentId] = useState<number>(0);
 
   // 時間
-  const [time, setTime] = useState<number>();
+  const [time, setTime] = useState<number>(0);
 
   // stateの初期化
   useEffect(() => {
     setDate(selectedRecord ? selectedRecord.date : "");
-    setLearningContent(selectedRecord ? selectedRecord.learning_content.id : 0);
+    setLearningContentId(
+      selectedRecord ? selectedRecord.learning_content.id : 0
+    );
     setTime(selectedRecord ? selectedRecord.time : 0);
   }, [selectedRecord]);
 
@@ -53,7 +56,7 @@ export const RecordModal = (props: Props) => {
 
   // 内容テキスト変更
   function onChangeLearningContents(e: ChangeEvent<HTMLSelectElement>) {
-    setLearningContent(Number(e.target.value));
+    setLearningContentId(Number(e.target.value));
     console.debug(e.target.value);
   }
 
@@ -65,7 +68,38 @@ export const RecordModal = (props: Props) => {
 
   // 保存ボタン押下
   const onClickSave = () => {
-    alert(`"保存しました[日付=${date}, 内容=${learningContent}, 時間=${time}]`);
+    // 学習内容の取得
+    const targetLearningContent = learningContents.find(
+      (learningContent) => learningContent.id === learningContentId
+    );
+    // 学習記録の生成
+    const record: Record = {
+      id: selectedRecord ? selectedRecord.id : 0,
+      date: date,
+      learning_content: targetLearningContent!,
+      time: time,
+    };
+
+    if (isNew) {
+      axios
+        .post<Record>("http://127.0.0.1:8000/record/create", record)
+        .then((res) => {
+          console.debug(res);
+        })
+        .catch((error) => {
+          console.debug("データの追加に失敗しました:", error);
+        });
+    } else {
+      axios
+        .post<Record>("http://127.0.0.1:8000/record/update", record)
+        .then((res) => {
+          console.debug(res);
+        })
+        .catch((error) => {
+          console.debug("データの更新に失敗しました:", error);
+        });
+    }
+
     onClose();
   };
 
@@ -90,7 +124,7 @@ export const RecordModal = (props: Props) => {
               <Select
                 onChange={onChangeLearningContents}
                 placeholder="選択してください"
-                value={learningContent}
+                value={learningContentId}
               >
                 {learningContents.map((learningContent) => (
                   <option value={learningContent.id}>
