@@ -157,6 +157,7 @@ def create_learning_content(
     )
     return db_learning_content
 
+
 @app.post("/learning-content/update")
 def update_learning_content(
     learning_content: schemas.LearningContentBase, db: Session = Depends(get_db)
@@ -196,3 +197,38 @@ def get_record(db: Session = Depends(get_db)):
         records_with_content.append(record)
 
     return records_with_content
+
+@app.get("/record/{id}", response_model=schemas.RecordBase)
+def record(id: int, db: Session = Depends(get_db)):
+    db_record = crud.get_record(db=db, id=id)
+    if db_record is None:
+        raise HTTPException(status_code=404, detail="Record not found")
+    
+    # LearningContentを取得
+    learning_content = crud.get_learning_content(
+        db=db, id=db_record.learning_content_id
+    )
+
+    learning_content_model = schemas.LearningContentBase(
+        id=learning_content.id,
+        seq=learning_content.seq,
+        content_name=learning_content.content_name,
+    )
+
+    db_record = schemas.RecordBase(
+        id=db_record.id,
+        date=db_record.date,
+        learning_content=learning_content_model,
+        time=db_record.time,
+    )
+    return db_record
+
+@app.post("/record/create")
+def create_record(record: schemas.RecordBase, db: Session = Depends(get_db)):
+    db_record = crud.create_record(db=db, record=record)
+    return db_record
+
+@app.post("/record/update")
+def update_record(record: schemas.RecordBase, db: Session = Depends(get_db)):
+    db_record = crud.update_record(db=db, record=record)
+    return db_record

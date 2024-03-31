@@ -1,4 +1,5 @@
 from operator import le
+import time
 from sqlalchemy.orm import Session
 import models
 import schemas
@@ -86,3 +87,30 @@ def update_user(db: Session, user_id: int, user: schemas.UserUpdate):
 # Recordテーブル全てのデータを取り出す。
 def get_all_record(db: Session):
     return db.query(models.Record).all()
+
+# idからRecordテーブルのデータを取り出す。
+def get_record(db: Session, id: int):
+    return db.query(models.Record).filter(models.Record.id == id).first()
+
+# Recordテーブルにデータを追加
+def create_record(db: Session, record: schemas.RecordBase):
+    record_obj = models.Record(
+        date = record.date,
+        learning_content_id = record.learning_content.id,
+        time = record.time
+    )
+    db.add(record_obj)
+    db.commit()
+    db.refresh(record_obj)
+    return record_obj
+
+# Recordテーブルにデータを更新
+def update_record(db: Session, record: schemas.RecordBase):
+    record_obj = get_record(db, record.id)
+    if record_obj is not None:
+        record_obj.date = record.date
+        record_obj.learning_content_id = record.learning_content.id
+        record_obj.time = record.time
+        db.commit()
+        db.refresh(record_obj)
+    return record_obj

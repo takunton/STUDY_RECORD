@@ -29,4 +29,4 @@ class Record(Base):
     )
     date = sa.Column("date", sa.Text, nullable=False)
     learning_content_id = sa.Column("learning_content_id", sa.Integer, nullable=False)
-    time = sa.Column("seq", sa.Integer, nullable=False)
+    time = sa.Column("time", sa.Integer, nullable=False)
