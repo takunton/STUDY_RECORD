@@ -94,6 +94,12 @@ export const CarendarTemplate = () => {
     onOpen();
   };
 
+  // モーダルを閉じるときにデータを再取得
+  const onCloseRecordModal = () => {
+    getLearningRecords();
+    onClose();
+  };
+
   return (
     <>
       <FullCalendar
@@ -115,7 +121,7 @@ export const CarendarTemplate = () => {
         isOpen={isOpen}
         operationModeType={operationModeType}
         selectedRecord={selectedRecord!}
-        onClose={onClose}
+        onClose={onCloseRecordModal}
       ></RecordModal>
     </>
   );

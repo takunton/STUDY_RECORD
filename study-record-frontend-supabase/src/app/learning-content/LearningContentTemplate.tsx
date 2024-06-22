@@ -15,6 +15,7 @@ import { LearningContent } from "../../_types/LearningContent";
 import { LearningContentModal } from "./LearningContentModal";
 import { getAllLearningContents } from "../../util/supabaseFunctions";
 import { OperationModeType } from "../../_types/OperationModeType";
+import { DeleteButton } from "../../_components/DeleteButton";
 
 export const LearningContentTemplate = () => {
   // 内容リスト
@@ -102,11 +103,11 @@ export const LearningContentTemplate = () => {
                   >
                     編集
                   </PrimaryButton>
-                  <PrimaryButton
+                  <DeleteButton
                     onClick={() => onClickDelete(learningContent.id)}
                   >
                     削除
-                  </PrimaryButton>
+                  </DeleteButton>
                 </Td>
               </Tr>
             ))}

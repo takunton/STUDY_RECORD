@@ -28,6 +28,7 @@ import {
   insertLearningRecord,
   updateLearningRecord,
 } from "../../util/supabaseFunctions";
+import { DeleteButton } from "../../_components/DeleteButton";
 
 type Props = {
   isOpen: boolean;
@@ -186,12 +187,7 @@ export const RecordModal = (props: Props) => {
           <Flex w="100%" justify="space-between">
             <Box>
               {operationModeType === OperationModeType.Edit && (
-                <Button
-                  onClick={onClickDelete}
-                  style={{ backgroundColor: "red", color: "white" }}
-                >
-                  削除
-                </Button>
+                <DeleteButton onClick={onClickDelete}>削除</DeleteButton>
               )}
             </Box>
             <Box>
