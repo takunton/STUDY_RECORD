@@ -25,7 +25,7 @@ export const Layout = () => {
         align="center"
         _hover={{ cursor: "pointer" }}
       >
-        <Heading onClick={onClickHome}>学習記録アプリ</Heading>
+        <Heading onClick={onClickHome}>学習記録</Heading>
         <Box pl={4}>
           <Link onClick={onClickLearningContent}>メンテナンス</Link>
         </Box>

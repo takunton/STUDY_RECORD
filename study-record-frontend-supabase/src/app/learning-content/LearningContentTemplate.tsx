@@ -8,43 +8,74 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { useLearningContent } from "../../_hooks/useLearningContent";
 import { PrimaryButton } from "../../_components/PrimaryButton";
 import { LearningContent } from "../../_types/LearningContent";
 import { LearningContentModal } from "./LearningContentModal";
+import { getAllLearningContents } from "../../util/supabaseFunctions";
+import { OperationModeType } from "../../_types/OperationModeType";
 
 export const LearningContentTemplate = () => {
   // 内容リスト
-  const { learningContents } = useLearningContent();
+  const [learningContents, seLearningContents] = useState<LearningContent[]>(
+    []
+  );
+
+  // 内容リストを初期化
+  useEffect(() => {
+    getLearningContents();
+  }, []);
+
+  const getLearningContents = async () => {
+    const learningContents = await getAllLearningContents();
+    seLearningContents(learningContents);
+  };
+
   // 選択された内容
   const [selectedLearningContent, setSelectedLearningContent] = useState<
     LearningContent | undefined
   >();
 
   // モーダルのモード
-  const [isNew, setIsNew] = useState(false);
+  const [operationModeType, setOperationModeType] = useState<OperationModeType>(
+    OperationModeType.Add
+  );
   // モーダルの状態
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // 追加ボタン押下
-  function onClickInsert() {
-    setIsNew(true);
+  const onClickInsert = () => {
+    setOperationModeType(OperationModeType.Add);
     setSelectedLearningContent(undefined);
     onOpen();
-  }
+  };
 
   // 編集ボタン押下
   function onClickUpdate(id: number) {
-    console.debug(id);
-    setIsNew(false);
+    setOperationModeType(OperationModeType.Edit);
     const targetLearningContent = learningContents.find(
       (learningContent) => learningContent.id === id
     );
     setSelectedLearningContent(targetLearningContent);
     onOpen();
   }
+
+  // 削除ボタン押下
+  const onClickDelete = (id: number) => {
+    setOperationModeType(OperationModeType.Delete);
+    const targetLearningContent = learningContents.find(
+      (learningContent) => learningContent.id === id
+    );
+    setSelectedLearningContent(targetLearningContent);
+    onOpen();
+  };
+
+  // モーダルを閉じるときにデータを再取得
+  const handleModalClose = () => {
+    getLearningContents();
+    onClose();
+  };
 
   return (
     <>
@@ -54,7 +85,7 @@ export const LearningContentTemplate = () => {
           <Thead bgColor="black">
             <Tr>
               <Th color="white">表示順</Th>
-              <Th color="white">内容</Th>
+              <Th color="white">学習内容</Th>
               <Th color="white"></Th>
               <Th></Th>
             </Tr>
@@ -70,6 +101,11 @@ export const LearningContentTemplate = () => {
                   >
                     編集
                   </PrimaryButton>
+                  <PrimaryButton
+                    onClick={() => onClickDelete(learningContent.id)}
+                  >
+                    削除
+                  </PrimaryButton>
                 </Td>
               </Tr>
             ))}
@@ -77,10 +113,10 @@ export const LearningContentTemplate = () => {
         </Table>
       </TableContainer>
       <LearningContentModal
-        isNew={isNew}
         isOpen={isOpen}
+        operationModeType={operationModeType}
         selectedLearningContent={selectedLearningContent}
-        onClose={onClose}
+        onClose={handleModalClose}
       ></LearningContentModal>
     </>
   );

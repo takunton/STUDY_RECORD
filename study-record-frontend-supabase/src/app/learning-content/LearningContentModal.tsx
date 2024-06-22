@@ -8,25 +8,30 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Select,
   Stack,
 } from "@chakra-ui/react";
 import { PrimaryButton } from "../../_components/PrimaryButton";
-import { useLearningContent } from "../../_hooks/useLearningContent";
 import { ChangeEvent, useEffect, useState } from "react";
-import { Record } from "../../_types/Record";
-import axios from "axios";
 import { LearningContent } from "../../_types/LearningContent";
+import {
+  deleteLearningContent,
+  insertLearningContent,
+  updateLearningContent,
+} from "../../util/supabaseFunctions";
+import {
+  OperationModeType,
+  OperationModeTypeOptions,
+} from "../../_types/OperationModeType";
 
 type Props = {
-  isNew: boolean;
   isOpen: boolean;
+  operationModeType: OperationModeType;
   selectedLearningContent: LearningContent | undefined;
   onClose: () => void;
 };
 
 export const LearningContentModal = (props: Props) => {
-  const { isNew, isOpen, selectedLearningContent, onClose } = props;
+  const { isOpen, operationModeType, selectedLearningContent, onClose } = props;
 
   // 表示順
   const [seq, setSeq] = useState<number>(0);
@@ -43,52 +48,90 @@ export const LearningContentModal = (props: Props) => {
   }, [selectedLearningContent]);
 
   // 表示順テキスト変更
-  function onChangeSeq(e: ChangeEvent<HTMLInputElement>) {
+  const onChangeSeq = (e: ChangeEvent<HTMLInputElement>) => {
     setSeq(Number(e.target.valueAsNumber));
     console.debug(e.target.valueAsNumber);
-  }
+  };
 
   // 学習内容テキスト変更
-  function onChangeContentName(e: ChangeEvent<HTMLInputElement>) {
+  const onChangeContentName = (e: ChangeEvent<HTMLInputElement>) => {
     setContentName(e.target.value);
     console.debug(e.target.value);
-  }
+  };
 
-  // 保存ボタン押下
-  const onClickSave = () => {
-    const learningContent: LearningContent = {
-      id: selectedLearningContent ? selectedLearningContent.id : 0,
+  // 追加
+  const insert = async () => {
+    // 追加する学習内容を生成
+    const newLearningContent: Omit<LearningContent, "id"> = {
       seq: seq,
       content_name: contentName,
     };
 
-    if (isNew) {
-      axios
-        .post<LearningContent>(
-          "http://127.0.0.1:8000/learning-content/create",
-          learningContent
-        )
-        .then((res) => {
-          console.debug(res);
-        })
-        .catch((error) => {
-          console.debug("データの追加に失敗しました:", error);
-        });
-    } else {
-      axios
-        .post<LearningContent>(
-          "http://127.0.0.1:8000/learning-content/update",
-          learningContent
-        )
-        .then((res) => {
-          console.debug(res);
-        })
-        .catch((error) => {
-          console.debug("データの更新に失敗しました:", error);
-        });
+    //
+    try {
+      await insertLearningContent(newLearningContent);
+    } catch (error) {
+      console.error("Error adding learning_content:", error);
     }
-    alert(`"保存しました[表示順=${seq}, 学習内容=${contentName}]`);
+  };
+
+  // 更新
+  const update = async () => {
+    // 更新する学習内容を生成
+    const newLearningContent: LearningContent = {
+      id: selectedLearningContent!.id,
+      seq: seq,
+      content_name: contentName,
+    };
+
+    //
+    try {
+      await updateLearningContent(newLearningContent);
+    } catch (error) {
+      console.error("Error updating learning_content:", error);
+    }
+  };
+
+  // 削除
+  const deletes = async () => {
+    // 更新する学習内容を生成
+    const newLearningContent: LearningContent = {
+      id: selectedLearningContent!.id,
+      seq: seq,
+      content_name: contentName,
+    };
+
+    //
+    try {
+      await deleteLearningContent(newLearningContent);
+    } catch (error) {
+      console.error("Error deleting learning_content:", error);
+    }
+  };
+
+  // 保存ボタン押下
+  const onClickSave = async () => {
+    switch (operationModeType) {
+      case OperationModeType.Add:
+        await insert();
+        break;
+      case OperationModeType.Edit:
+        await update();
+        break;
+      case OperationModeType.Delete:
+        await deletes();
+    }
+
     onClose();
+  };
+
+  // ヘッダー文字列を生成
+  const renderHeader = () => {
+    const option = OperationModeTypeOptions.find(
+      (opt) => opt.value === operationModeType
+    );
+
+    return `学習内容（${option?.label}）`;
   };
 
   return (
@@ -100,18 +143,25 @@ export const LearningContentModal = (props: Props) => {
     >
       <ModalOverlay />
       <ModalContent pb={2}>
-        <ModalHeader>
-          {isNew ? "学習内容（追加）" : "学習内容（編集）"}
-        </ModalHeader>
+        <ModalHeader>{renderHeader()}</ModalHeader>
         <ModalBody mx={4}>
           <Stack spacing={4}>
             <FormControl>
               <FormLabel>表示順</FormLabel>
-              <Input type="number" onChange={onChangeSeq} value={seq} />
+              <Input
+                isReadOnly={operationModeType === OperationModeType.Delete}
+                type="number"
+                onChange={onChangeSeq}
+                value={seq}
+              />
             </FormControl>
             <FormControl>
-              <FormLabel>内容</FormLabel>
-              <Input onChange={onChangeContentName} value={contentName} />
+              <FormLabel>学習内容</FormLabel>
+              <Input
+                isReadOnly={operationModeType === OperationModeType.Delete}
+                onChange={onChangeContentName}
+                value={contentName}
+              />
             </FormControl>
           </Stack>
         </ModalBody>
