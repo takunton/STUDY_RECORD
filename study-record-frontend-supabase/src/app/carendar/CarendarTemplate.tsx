@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDisclosure } from "@chakra-ui/react";
 import {
   EventClickArg,
@@ -12,27 +12,40 @@ import { DateClickArg } from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 
 import { RecordModal } from "./RecordModal";
-import { useRecord } from "../../_hooks/useRecord";
-import { Record } from "../../_types/Record";
+import { LearningRecord } from "../../_types/LearningRecord";
+import { getAllLearningRecords } from "../../util/supabaseFunctions";
+import { OperationModeType } from "../../_types/OperationModeType";
 
 export const CarendarTemplate = () => {
   // 記録リスト
-  const { records } = useRecord();
+  const [learningRecords, setLearningRecords] = useState<LearningRecord[]>([]);
 
   // 選択された記録
-  const [selectedRecord, setSelectedRecord] = useState<Record>();
+  const [selectedRecord, setSelectedRecord] = useState<LearningRecord>();
 
   // モーダルのモード
-  const [isNew, setIsNew] = useState(false);
+  const [operationModeType, setOperationModeType] = useState<OperationModeType>(
+    OperationModeType.Add
+  );
 
   // モーダルの状態
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  // 記録リストを初期化
+  useEffect(() => {
+    getLearningRecords();
+  }, []);
+
+  const getLearningRecords = async () => {
+    const learningRecords = await getAllLearningRecords();
+    setLearningRecords(learningRecords);
+  };
+
   // 記録リストをeventオブジェクトに変換
-  const events: EventSourceInput = records.map((record) => ({
-    id: String(record.id),
-    title: `${record.id}  ${record.time} ${record.learning_content.content_name}`,
-    start: record.date,
+  const events: EventSourceInput = learningRecords.map((learningRecord) => ({
+    id: String(learningRecord.id),
+    title: `${learningRecord.id}  ${learningRecord.time} ${learningRecord.learning_content.content_name}`,
+    start: learningRecord.date,
   }));
 
   // イベントのフォーマット
@@ -47,16 +60,33 @@ export const CarendarTemplate = () => {
 
   // 日付クリック
   const handleDateClick = (arg: DateClickArg) => {
-    setIsNew(true);
-    setSelectedRecord(undefined);
+    const formatDate = (date: Date): string => {
+      const year = date.getFullYear();
+      const month = ("0" + (date.getMonth() + 1)).slice(-2);
+      const day = ("0" + date.getDate()).slice(-2);
+      return `${year}-${month}-${day}`;
+    };
+
+    const newLearningRecord: LearningRecord = {
+      id: -1,
+      date: formatDate(arg.date),
+      learning_content: { id: -1, seq: -1, content_name: "" },
+      time: 0,
+    };
+
+    console.log(newLearningRecord);
+
+    setOperationModeType(OperationModeType.Add);
+
+    setSelectedRecord(newLearningRecord);
     onOpen();
   };
 
   // イベントクリック
   const eventClick = (arg: EventClickArg) => {
-    setIsNew(false);
-    const targetRecord = records.find(
-      (record) => record.id === Number(arg.event.id)
+    setOperationModeType(OperationModeType.Edit);
+    const targetRecord = learningRecords.find(
+      (learningRecord) => learningRecord.id === Number(arg.event.id)
     );
     setSelectedRecord(targetRecord);
     console.debug(arg.event.id);
@@ -82,9 +112,9 @@ export const CarendarTemplate = () => {
         events={events}
       />
       <RecordModal
-        isNew={isNew}
         isOpen={isOpen}
-        selectedRecord={selectedRecord}
+        operationModeType={operationModeType}
+        selectedRecord={selectedRecord!}
         onClose={onClose}
       ></RecordModal>
     </>

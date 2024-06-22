@@ -1,4 +1,7 @@
 import {
+  Box,
+  Button,
+  Flex,
   FormControl,
   FormLabel,
   Input,
@@ -14,18 +17,27 @@ import {
 import { PrimaryButton } from "../../_components/PrimaryButton";
 import { useLearningContent } from "../../_hooks/useLearningContent";
 import { ChangeEvent, useEffect, useState } from "react";
-import { Record } from "../../_types/Record";
-import axios from "axios";
+import { LearningRecord } from "../../_types/LearningRecord";
+import {
+  GenerateOperationModeTypeHeader,
+  OperationModeType,
+} from "../../_types/OperationModeType";
+import { LearningContent } from "../../_types/LearningContent";
+import {
+  deleteLearningRecord,
+  insertLearningRecord,
+  updateLearningRecord,
+} from "../../util/supabaseFunctions";
 
 type Props = {
-  isNew: boolean;
   isOpen: boolean;
-  selectedRecord: Record | undefined;
+  operationModeType: OperationModeType;
+  selectedRecord: LearningRecord | undefined;
   onClose: () => void;
 };
 
 export const RecordModal = (props: Props) => {
-  const { isNew, isOpen, selectedRecord, onClose } = props;
+  const { isOpen, operationModeType, selectedRecord, onClose } = props;
 
   // 内容リスト
   const { learningContents } = useLearningContent();
@@ -67,37 +79,65 @@ export const RecordModal = (props: Props) => {
   }
 
   // 保存ボタン押下
-  const onClickSave = () => {
+  const onClickSave = async () => {
     // 学習内容の取得
     const targetLearningContent = learningContents.find(
       (learningContent) => learningContent.id === learningContentId
     );
-    // 学習記録の生成
-    const record: Record = {
-      id: selectedRecord ? selectedRecord.id : 0,
+
+    switch (operationModeType) {
+      case OperationModeType.Add:
+        await insert(targetLearningContent!);
+        break;
+      case OperationModeType.Edit:
+        await update(targetLearningContent!);
+    }
+
+    onClose();
+  };
+
+  // 追加
+  const insert = async (targetLearningContent: LearningContent) => {
+    // 追加する学習記録を生成
+    const newLearningRecord: Omit<LearningRecord, "id"> = {
       date: date,
-      learning_content: targetLearningContent!,
+      learning_content: targetLearningContent,
       time: time,
     };
 
-    if (isNew) {
-      axios
-        .post<Record>("http://127.0.0.1:8000/record/create", record)
-        .then((res) => {
-          console.debug(res);
-        })
-        .catch((error) => {
-          console.debug("データの追加に失敗しました:", error);
-        });
-    } else {
-      axios
-        .post<Record>("http://127.0.0.1:8000/record/update", record)
-        .then((res) => {
-          console.debug(res);
-        })
-        .catch((error) => {
-          console.debug("データの更新に失敗しました:", error);
-        });
+    //
+    try {
+      await insertLearningRecord(newLearningRecord);
+    } catch (error) {
+      console.error("Error adding learning_content:", error);
+    }
+  };
+
+  // 編集
+  const update = async (targetLearningContent: LearningContent) => {
+    // 編集する学習記録を生成
+    const newLearningRecord: LearningRecord = {
+      id: selectedRecord ? selectedRecord.id : 0,
+      date: date,
+      learning_content: targetLearningContent,
+      time: time,
+    };
+
+    //
+    try {
+      await updateLearningRecord(newLearningRecord);
+    } catch (error) {
+      console.error("Error updating learning_content:", error);
+    }
+  };
+
+  // 削除ボタン押下
+  const onClickDelete = async () => {
+    //
+    try {
+      await deleteLearningRecord(selectedRecord!.id);
+    } catch (error) {
+      console.error("Error deleting learning_content:", error);
     }
 
     onClose();
@@ -112,7 +152,10 @@ export const RecordModal = (props: Props) => {
     >
       <ModalOverlay />
       <ModalContent pb={2}>
-        <ModalHeader>{isNew ? "記録（追加）" : "記録（編集）"}</ModalHeader>
+        <ModalHeader>
+          {" "}
+          {GenerateOperationModeTypeHeader("学習記録", operationModeType)}
+        </ModalHeader>
         <ModalBody mx={4}>
           <Stack spacing={4}>
             <FormControl>
@@ -140,7 +183,21 @@ export const RecordModal = (props: Props) => {
           </Stack>
         </ModalBody>
         <ModalFooter>
-          <PrimaryButton onClick={onClickSave}>保存</PrimaryButton>
+          <Flex w="100%" justify="space-between">
+            <Box>
+              {operationModeType === OperationModeType.Edit && (
+                <Button
+                  onClick={onClickDelete}
+                  style={{ backgroundColor: "red", color: "white" }}
+                >
+                  削除
+                </Button>
+              )}
+            </Box>
+            <Box>
+              <PrimaryButton onClick={onClickSave}>保存</PrimaryButton>
+            </Box>
+          </Flex>
         </ModalFooter>
       </ModalContent>
     </Modal>

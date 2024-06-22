@@ -1,15 +1,16 @@
 import axios from "axios";
-import { Record } from "../_types/Record";
+import { LearningRecord } from "../_types/LearningRecord";
 import { useEffect, useState } from "react";
+import { getAllLearningRecords } from "../util/supabaseFunctions";
 
 export function useRecord() {
-  const [records, setRecords] = useState<Record[]>([]);
+  const [records, setRecords] = useState<LearningRecord[]>([]);
 
   // state初期化
   useEffect(() => {
     const getRecords = () => {
       axios
-        .get<Array<Record>>("http://127.0.0.1:8000/record")
+        .get<Array<LearningRecord>>("http://127.0.0.1:8000/record")
         .then((res) => {
           console.debug(res);
           setRecords(res.data);
@@ -19,6 +20,7 @@ export function useRecord() {
         });
     };
 
+    getAllLearningRecords();
     getRecords();
   }, []);
 

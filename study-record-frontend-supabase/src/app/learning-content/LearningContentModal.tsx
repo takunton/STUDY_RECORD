@@ -19,8 +19,8 @@ import {
   updateLearningContent,
 } from "../../util/supabaseFunctions";
 import {
+  GenerateOperationModeTypeHeader,
   OperationModeType,
-  OperationModeTypeOptions,
 } from "../../_types/OperationModeType";
 
 type Props = {
@@ -57,6 +57,22 @@ export const LearningContentModal = (props: Props) => {
   const onChangeContentName = (e: ChangeEvent<HTMLInputElement>) => {
     setContentName(e.target.value);
     console.debug(e.target.value);
+  };
+
+  // 保存ボタン押下
+  const onClickSave = async () => {
+    switch (operationModeType) {
+      case OperationModeType.Add:
+        await insert();
+        break;
+      case OperationModeType.Edit:
+        await update();
+        break;
+      case OperationModeType.Delete:
+        await deletes();
+    }
+
+    onClose();
   };
 
   // 追加
@@ -109,31 +125,6 @@ export const LearningContentModal = (props: Props) => {
     }
   };
 
-  // 保存ボタン押下
-  const onClickSave = async () => {
-    switch (operationModeType) {
-      case OperationModeType.Add:
-        await insert();
-        break;
-      case OperationModeType.Edit:
-        await update();
-        break;
-      case OperationModeType.Delete:
-        await deletes();
-    }
-
-    onClose();
-  };
-
-  // ヘッダー文字列を生成
-  const renderHeader = () => {
-    const option = OperationModeTypeOptions.find(
-      (opt) => opt.value === operationModeType
-    );
-
-    return `学習内容（${option?.label}）`;
-  };
-
   return (
     <Modal
       isOpen={isOpen}
@@ -143,7 +134,9 @@ export const LearningContentModal = (props: Props) => {
     >
       <ModalOverlay />
       <ModalContent pb={2}>
-        <ModalHeader>{renderHeader()}</ModalHeader>
+        <ModalHeader>
+          {GenerateOperationModeTypeHeader("学習内容", operationModeType)}
+        </ModalHeader>
         <ModalBody mx={4}>
           <Stack spacing={4}>
             <FormControl>

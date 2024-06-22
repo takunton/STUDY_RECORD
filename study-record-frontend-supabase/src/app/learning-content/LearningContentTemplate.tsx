@@ -41,6 +41,7 @@ export const LearningContentTemplate = () => {
   const [operationModeType, setOperationModeType] = useState<OperationModeType>(
     OperationModeType.Add
   );
+
   // モーダルの状態
   const { isOpen, onOpen, onClose } = useDisclosure();
 
