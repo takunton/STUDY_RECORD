@@ -44,17 +44,19 @@ export const CarendarTemplate = () => {
   // 記録リストをeventオブジェクトに変換
   const events: EventSourceInput = learningRecords.map((learningRecord) => ({
     id: String(learningRecord.id),
-    title: `${learningRecord.id}  ${learningRecord.time} ${learningRecord.learning_content.content_name}`,
     start: learningRecord.date,
+    extendedProps: {
+      learningContent: learningRecord.learning_content.content_name,
+      time: learningRecord.time,
+    },
   }));
 
   // イベントのフォーマット
   const renderEventContent = (eventInfo: EventContentArg) => {
     return (
-      <>
-        <b>{eventInfo?.timeText}</b>
-        <i>{eventInfo?.event.title}</i>
-      </>
+      <div style={{ whiteSpace: "pre-wrap" }}>
+        {`学習内容：${eventInfo.event.extendedProps.learningContent}\n学習時間：${eventInfo?.event.extendedProps.time}分`}
+      </div>
     );
   };
 
