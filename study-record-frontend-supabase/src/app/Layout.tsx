@@ -27,7 +27,7 @@ export const Layout = () => {
       >
         <Heading onClick={onClickHome}>学習記録</Heading>
         <Box pl={4}>
-          <Link onClick={onClickLearningContent}>メンテナンス</Link>
+          <Link onClick={onClickLearningContent}>学習内容メンテナンス</Link>
         </Box>
       </Flex>
       <Outlet />

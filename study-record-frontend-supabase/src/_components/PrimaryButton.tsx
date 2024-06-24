@@ -14,6 +14,7 @@ export const PrimaryButton: FC<Props> = (props) => {
   return (
     <Button
       onClick={onClick}
+      m="5px"
       bg="teal.400"
       color="white"
       isDisabled={disabled || loading}

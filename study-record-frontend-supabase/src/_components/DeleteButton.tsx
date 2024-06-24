@@ -14,6 +14,7 @@ export const DeleteButton: FC<Props> = (props) => {
   return (
     <Button
       onClick={onClick}
+      m="5px"
       bg="red.400"
       color="white"
       isDisabled={disabled || loading}
