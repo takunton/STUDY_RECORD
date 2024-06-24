@@ -72,6 +72,10 @@ export const LearningContentModal = (props: Props) => {
         await deletes();
     }
 
+    // 画面初期化
+    setSeq(0);
+    setContentName("");
+
     onClose();
   };
 
