@@ -113,11 +113,12 @@ export const CarendarTemplate = () => {
         headerToolbar={{
           left: "prev,next today",
           center: "title",
-          right: "dayGridMonth listWeek", // 追加
+          right: "dayGridMonth listWeek",
         }}
         dateClick={handleDateClick}
         eventContent={renderEventContent}
         initialView="dayGridMonth"
+        height="auto"
         eventClick={eventClick}
         events={events}
       />
