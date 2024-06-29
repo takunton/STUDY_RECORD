@@ -71,10 +71,10 @@ export const CarendarTemplate = () => {
     };
 
     const newLearningRecord: LearningRecord = {
-      id: -1,
+      id: "",
       user_id: getLoginInfo().id,
       date: formatDate(arg.date),
-      learning_content: { id: -1, seq: -1, content_name: "" },
+      learning_content: { id: "", seq: -1, content_name: "" },
       time: 0,
     };
 
@@ -90,7 +90,7 @@ export const CarendarTemplate = () => {
   const eventClick = (arg: EventClickArg) => {
     setOperationModeType(OperationModeType.Edit);
     const targetRecord = learningRecords.find(
-      (learningRecord) => learningRecord.id === Number(arg.event.id)
+      (learningRecord) => learningRecord.id === arg.event.id
     );
     setSelectedRecord(targetRecord);
     console.debug(arg.event.id);

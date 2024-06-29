@@ -30,6 +30,7 @@ import {
 } from "../../util/supabaseFunctions";
 import { DeleteButton } from "../../_components/DeleteButton";
 import { getLoginInfo } from "../../_hooks/useLoginInfo";
+import { uuidv7 } from "uuidv7";
 
 type Props = {
   isOpen: boolean;
@@ -48,7 +49,7 @@ export const RecordModal = (props: Props) => {
   const [date, setDate] = useState<string>("");
 
   // 内容
-  const [learningContentId, setLearningContentId] = useState<number>(0);
+  const [learningContentId, setLearningContentId] = useState<string>("");
 
   // 時間
   const [time, setTime] = useState<number>(0);
@@ -57,7 +58,7 @@ export const RecordModal = (props: Props) => {
   useEffect(() => {
     setDate(selectedRecord ? selectedRecord.date : "");
     setLearningContentId(
-      selectedRecord ? selectedRecord.learning_content.id : 0
+      selectedRecord ? selectedRecord.learning_content.id : ""
     );
     setTime(selectedRecord ? selectedRecord.time : 0);
   }, [selectedRecord]);
@@ -70,7 +71,7 @@ export const RecordModal = (props: Props) => {
 
   // 内容テキスト変更
   function onChangeLearningContents(e: ChangeEvent<HTMLSelectElement>) {
-    setLearningContentId(Number(e.target.value));
+    setLearningContentId(e.target.value);
     console.debug(e.target.value);
   }
 
@@ -101,7 +102,8 @@ export const RecordModal = (props: Props) => {
   // 追加
   const insert = async (targetLearningContent: LearningContent) => {
     // 追加する学習記録を生成
-    const newLearningRecord: Omit<LearningRecord, "id"> = {
+    const newLearningRecord: LearningRecord = {
+      id: uuidv7(),
       user_id: getLoginInfo().id,
       date: date,
       learning_content: targetLearningContent,
@@ -120,7 +122,7 @@ export const RecordModal = (props: Props) => {
   const update = async (targetLearningContent: LearningContent) => {
     // 編集する学習記録を生成
     const newLearningRecord: LearningRecord = {
-      id: selectedRecord ? selectedRecord.id : 0,
+      id: selectedRecord ? selectedRecord.id : "",
       user_id: selectedRecord ? selectedRecord.user_id : "",
       date: date,
       learning_content: targetLearningContent,

@@ -54,7 +54,7 @@ export const LearningContentTemplate = () => {
   };
 
   // 編集ボタン押下
-  function onClickUpdate(id: number) {
+  function onClickUpdate(id: string) {
     setOperationModeType(OperationModeType.Edit);
     const targetLearningContent = learningContents.find(
       (learningContent) => learningContent.id === id
@@ -64,7 +64,7 @@ export const LearningContentTemplate = () => {
   }
 
   // 削除ボタン押下
-  const onClickDelete = (id: number) => {
+  const onClickDelete = (id: string) => {
     setOperationModeType(OperationModeType.Delete);
     const targetLearningContent = learningContents.find(
       (learningContent) => learningContent.id === id

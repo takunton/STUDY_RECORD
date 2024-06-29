@@ -22,6 +22,7 @@ import {
   GenerateOperationModeTypeHeader,
   OperationModeType,
 } from "../../_types/OperationModeType";
+import { uuidv7 } from "uuidv7";
 
 type Props = {
   isOpen: boolean;
@@ -82,7 +83,8 @@ export const LearningContentModal = (props: Props) => {
   // 追加
   const insert = async () => {
     // 追加する学習内容を生成
-    const newLearningContent: Omit<LearningContent, "id"> = {
+    const newLearningContent: LearningContent = {
+      id: uuidv7(),
       seq: seq,
       content_name: contentName,
     };

@@ -43,12 +43,13 @@ export const getAllLearningRecords = async (): Promise<LearningRecord[]> => {
 };
 
 export const insertLearningRecord = async (
-  newLearningRecord: Omit<LearningRecord, "id">
+  newLearningRecord: LearningRecord
 ): Promise<LearningRecord> => {
   const { data, error } = await supabase
     .from("learning_record")
     .insert([
       {
+        id: newLearningRecord.id,
         user_id: newLearningRecord.user_id,
         date: newLearningRecord.date,
         learning_content_id: newLearningRecord.learning_content.id,
@@ -89,7 +90,7 @@ export const updateLearningRecord = async (
 };
 
 export const deleteLearningRecord = async (
-  id: number
+  id: string
 ): Promise<LearningRecord> => {
   const { data, error } = await supabase
     .from("learning_record")
@@ -125,7 +126,7 @@ export const getAllLearningContents = async (): Promise<LearningContent[]> => {
 };
 
 export const insertLearningContent = async (
-  newLearningContent: Omit<LearningContent, "id">
+  newLearningContent: LearningContent
 ): Promise<LearningContent> => {
   const { data, error } = await supabase
     .from("learning_content")
