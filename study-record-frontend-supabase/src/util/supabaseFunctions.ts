@@ -107,7 +107,10 @@ export const deleteLearningRecord = async (
 };
 
 export const getAllLearningContents = async (): Promise<LearningContent[]> => {
-  const { data, error } = await supabase.from("learning_content").select("*");
+  const { data, error } = await supabase
+    .from("learning_content")
+    .select("*")
+    .order("seq");
 
   if (error) {
     console.error("Error fetching learning_contents:", error);
