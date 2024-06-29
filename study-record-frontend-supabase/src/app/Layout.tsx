@@ -1,5 +1,6 @@
-import { Box, Flex, Heading, Link } from "@chakra-ui/react";
+import { Box, Flex, Heading, Link, Text } from "@chakra-ui/react";
 import { Outlet, useNavigate } from "react-router-dom";
+import { getLoginInfo } from "../_hooks/useLoginInfo";
 
 export const Layout = () => {
   const navigate = useNavigate();
@@ -28,6 +29,9 @@ export const Layout = () => {
         <Heading onClick={onClickHome}>学習記録</Heading>
         <Box pl={4}>
           <Link onClick={onClickLearningContent}>学習内容メンテナンス</Link>
+        </Box>
+        <Box ml="auto">
+          <Text>{getLoginInfo().email}</Text>
         </Box>
       </Flex>
       <Outlet />

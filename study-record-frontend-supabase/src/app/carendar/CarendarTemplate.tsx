@@ -15,6 +15,7 @@ import { RecordModal } from "./RecordModal";
 import { LearningRecord } from "../../_types/LearningRecord";
 import { getAllLearningRecords } from "../../util/supabaseFunctions";
 import { OperationModeType } from "../../_types/OperationModeType";
+import { getLoginInfo } from "../../_hooks/useLoginInfo";
 
 export const CarendarTemplate = () => {
   // 記録リスト
@@ -71,6 +72,7 @@ export const CarendarTemplate = () => {
 
     const newLearningRecord: LearningRecord = {
       id: -1,
+      user_id: getLoginInfo().id,
       date: formatDate(arg.date),
       learning_content: { id: -1, seq: -1, content_name: "" },
       time: 0,

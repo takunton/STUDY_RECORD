@@ -29,6 +29,7 @@ import {
   updateLearningRecord,
 } from "../../util/supabaseFunctions";
 import { DeleteButton } from "../../_components/DeleteButton";
+import { getLoginInfo } from "../../_hooks/useLoginInfo";
 
 type Props = {
   isOpen: boolean;
@@ -101,6 +102,7 @@ export const RecordModal = (props: Props) => {
   const insert = async (targetLearningContent: LearningContent) => {
     // 追加する学習記録を生成
     const newLearningRecord: Omit<LearningRecord, "id"> = {
+      user_id: getLoginInfo().id,
       date: date,
       learning_content: targetLearningContent,
       time: time,
@@ -119,6 +121,7 @@ export const RecordModal = (props: Props) => {
     // 編集する学習記録を生成
     const newLearningRecord: LearningRecord = {
       id: selectedRecord ? selectedRecord.id : 0,
+      user_id: selectedRecord ? selectedRecord.user_id : "",
       date: date,
       learning_content: targetLearningContent,
       time: time,

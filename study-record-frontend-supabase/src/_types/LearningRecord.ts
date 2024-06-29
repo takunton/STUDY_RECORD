@@ -2,17 +2,8 @@ import { LearningContent } from "./LearningContent";
 
 export type LearningRecord = {
   id: number;
-  date: string;
+  user_id: string;
   learning_content: LearningContent;
+  date: string;
   time: number;
-};
-
-export const defaultLearningRecord: Partial<LearningRecord> = {
-  date: "",
-  time: 0,
-  learning_content: {
-    id: 0,
-    seq: 0,
-    content_name: "",
-  },
 };

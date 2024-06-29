@@ -6,11 +6,13 @@ import { CarendarTemplate } from "../app/carendar/CarendarTemplate";
 import { LearningContentTemplate } from "../app/learning-content/LearningContentTemplate";
 import { Page404 } from "../app/page404/Page404";
 import { Layout } from "../app/Layout";
+import { Auth } from "../app/login/Auth";
 
 export const Router = memo(() => {
   return (
     <Routes>
       <Route path="/" element={<LoginTemplate />}></Route>
+      <Route path="/login" element={<Auth />}></Route>
       <Route path="/home" element={<Layout />}>
         <Route index element={<CarendarTemplate />} />
         <Route

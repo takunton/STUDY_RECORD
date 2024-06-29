@@ -1,10 +1,13 @@
-import { time } from "console";
 import { LearningContent } from "../_types/LearningContent";
 import { LearningRecord } from "../_types/LearningRecord";
 import { supabase } from "./supabase";
+import { getLoginInfo } from "../_hooks/useLoginInfo";
 
 export const getAllLearningRecords = async (): Promise<LearningRecord[]> => {
-  const { data, error } = await supabase.from("learning_record").select(`
+  const { data, error } = await supabase
+    .from("learning_record")
+    .select(
+      `
     id,
     date,
     learning_content (
@@ -13,7 +16,9 @@ export const getAllLearningRecords = async (): Promise<LearningRecord[]> => {
       content_name
     ),
     time
-    `);
+    `
+    )
+    .match({ user_id: getLoginInfo().id });
 
   if (error) {
     console.error("Error fetching learning_records:", error);
@@ -24,6 +29,7 @@ export const getAllLearningRecords = async (): Promise<LearningRecord[]> => {
   const LearningRecords: LearningRecord[] =
     data?.map((learningRecordData: any) => ({
       id: learningRecordData.id,
+      user_id: learningRecordData.user_id,
       date: learningRecordData.date,
       learning_content: {
         id: learningRecordData.learning_content.id,
@@ -43,6 +49,7 @@ export const insertLearningRecord = async (
     .from("learning_record")
     .insert([
       {
+        user_id: newLearningRecord.user_id,
         date: newLearningRecord.date,
         learning_content_id: newLearningRecord.learning_content.id,
         time: newLearningRecord.time,
