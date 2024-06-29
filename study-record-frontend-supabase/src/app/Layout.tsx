@@ -1,8 +1,23 @@
-import { Box, Flex, Heading, Link, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Link,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Text,
+} from "@chakra-ui/react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { getLoginInfo } from "../_hooks/useLoginInfo";
+import { useState } from "react";
 
 export const Layout = () => {
+  const [isLoginMenuOpen, setLoginMenuOpen] = useState(false);
+  const [isMaintenanceMenuOpen, setMaintenanceMenuOpen] = useState(false);
+
   const navigate = useNavigate();
 
   // 学習記録アプリ選択
@@ -12,8 +27,14 @@ export const Layout = () => {
 
   // 学習内容メンテナンス選択
   function onClickLearningContent() {
-    navigate("learning-content");
+    navigate("/home/learning-content");
   }
+
+  // ログアウト選択
+  const handleLogout = () => {
+    alert("ログアウトします");
+    navigate("/login");
+  };
 
   return (
     <>
@@ -28,11 +49,59 @@ export const Layout = () => {
       >
         <Heading onClick={onClickHome}>学習記録</Heading>
         <Box pl={4}>
-          <Link onClick={onClickLearningContent}>学習内容メンテナンス</Link>
-        </Box>
+          <Menu
+            isOpen={isMaintenanceMenuOpen}
+            onClose={() => setMaintenanceMenuOpen(false)}
+          >
+            <MenuButton
+              color="white"
+              as={Button}
+              variant="link"
+              onMouseEnter={() => setMaintenanceMenuOpen(true)}
+              onMouseLeave={() => setMaintenanceMenuOpen(false)}
+              onClick={() => setMaintenanceMenuOpen(!isMaintenanceMenuOpen)}
+            >
+              メンテナンス
+            </MenuButton>
+            <MenuList
+              bg="black"
+              color="white"
+              onMouseEnter={() => setMaintenanceMenuOpen(true)}
+              onMouseLeave={() => setMaintenanceMenuOpen(false)}
+            >
+              <MenuItem bg="black" onClick={onClickLearningContent}>
+                学習内容
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </Box>{" "}
         <Box ml="auto">
-          <Text>{getLoginInfo().email}</Text>
-        </Box>
+          <Menu
+            isOpen={isLoginMenuOpen}
+            onClose={() => setLoginMenuOpen(false)}
+          >
+            <MenuButton
+              color="white"
+              as={Button}
+              variant="link"
+              onMouseEnter={() => setLoginMenuOpen(true)}
+              onMouseLeave={() => setLoginMenuOpen(false)}
+              onClick={() => setLoginMenuOpen(!isLoginMenuOpen)}
+            >
+              {getLoginInfo().email}
+            </MenuButton>
+            <MenuList
+              bg="black"
+              color="white"
+              onMouseEnter={() => setLoginMenuOpen(true)}
+              onMouseLeave={() => setLoginMenuOpen(false)}
+            >
+              <MenuItem bg="black" onClick={handleLogout}>
+                ログアウト
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </Box>{" "}
       </Flex>
       <Outlet />
     </>
