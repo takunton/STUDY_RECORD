@@ -1,17 +1,53 @@
 import { LearningContent } from "../_types/LearningContent";
 import { LearningRecord } from "../_types/LearningRecord";
 import { supabase } from "./supabase";
-import { getLoginInfo, removeLoginInfo } from "../_hooks/useLoginInfo";
+import {
+  getLoginInfo,
+  removeLoginInfo,
+  setLoginInfo,
+} from "../_hooks/useLoginInfo";
+import { LoginInfo } from "../_types/LoginInfo";
+import { UserResponse } from "@supabase/supabase-js";
+
+export const login = async (
+  email: string,
+  password: string
+): Promise<boolean> => {
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    alert(error);
+    return true;
+  }
+
+  const userData: UserResponse = await supabase.auth.getUser();
+  console.log(userData);
+
+  const loginInfo: LoginInfo = {
+    id: userData.data.user?.id ?? "",
+    email: userData.data.user?.email ?? "",
+  };
+
+  // ローカルストレージにログインを保存
+  setLoginInfo(loginInfo);
+  return false;
+};
 
 export const logout = async () => {
   const { error } = await supabase.auth.signOut();
 
   if (error) {
-    alert("サインアウトに失敗しました");
+    alert("ログアウトに失敗しました");
   }
 
+  const userData: UserResponse = await supabase.auth.getUser();
+  console.log(userData);
+
+  // ローカルストレージのログインを削除
   removeLoginInfo();
-  console.log(supabase.auth.getUser());
 };
 
 export const getAllLearningRecords = async (): Promise<LearningRecord[]> => {
