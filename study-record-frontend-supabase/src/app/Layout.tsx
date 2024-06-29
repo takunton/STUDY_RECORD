@@ -13,6 +13,7 @@ import {
 import { Outlet, useNavigate } from "react-router-dom";
 import { getLoginInfo } from "../_hooks/useLoginInfo";
 import { useState } from "react";
+import { logout } from "../util/supabaseFunctions";
 
 export const Layout = () => {
   const [isLoginMenuOpen, setLoginMenuOpen] = useState(false);
@@ -33,6 +34,7 @@ export const Layout = () => {
   // ログアウト選択
   const handleLogout = () => {
     alert("ログアウトします");
+    logout();
     navigate("/login");
   };
 

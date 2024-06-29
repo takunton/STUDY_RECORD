@@ -1,7 +1,18 @@
 import { LearningContent } from "../_types/LearningContent";
 import { LearningRecord } from "../_types/LearningRecord";
 import { supabase } from "./supabase";
-import { getLoginInfo } from "../_hooks/useLoginInfo";
+import { getLoginInfo, removeLoginInfo } from "../_hooks/useLoginInfo";
+
+export const logout = async () => {
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    alert("サインアウトに失敗しました");
+  }
+
+  removeLoginInfo();
+  console.log(supabase.auth.getUser());
+};
 
 export const getAllLearningRecords = async (): Promise<LearningRecord[]> => {
   const { data, error } = await supabase
