@@ -31,6 +31,9 @@ export const CarendarTemplate = () => {
   // 記録サマリー
   const [sumDate, setSumDate] = useState<number>(0);
   const [sumTime, setSumTime] = useState<number>(0);
+  const [contentSummary, setContentSummary] = useState<Record<string, number>>(
+    {}
+  );
 
   // モーダルのモード
   const [operationModeType, setOperationModeType] = useState<OperationModeType>(
@@ -65,14 +68,22 @@ export const CarendarTemplate = () => {
   const setLearningRecordSummary = (records: LearningRecord[]) => {
     const uniqueDates = new Set<string>();
     let timeSum: number = 0;
+    const contentTimeSummary: Record<string, number> = {};
 
     records.forEach((record) => {
       uniqueDates.add(record.date);
       timeSum += record.time;
+
+      const contentName = record.learning_content.content_name;
+      if (!contentTimeSummary[contentName]) {
+        contentTimeSummary[contentName] = 0;
+      }
+      contentTimeSummary[contentName] += record.time;
     });
 
     setSumDate(uniqueDates.size);
     setSumTime(timeSum);
+    setContentSummary(contentTimeSummary);
   };
 
   // 記録リストをeventオブジェクトに変換
@@ -157,8 +168,19 @@ export const CarendarTemplate = () => {
             <Text fontSize="3xl" fontWeight="bold">
               {sumTime}
             </Text>
-            <Text fontSize="lg">時間</Text>
+            <Text fontSize="lg"> 分</Text>
           </Box>
+          {Object.entries(contentSummary).map(([contentName, time]) => (
+            <Box key={contentName} textAlign="center">
+              <Text fontSize="sm" mb={2}>
+                {contentName}
+              </Text>
+              <Text fontSize="3xl" fontWeight="bold">
+                {time}
+              </Text>
+              <Text fontSize="lg">分</Text>
+            </Box>
+          ))}
         </Flex>
       </Box>
       <FullCalendar
