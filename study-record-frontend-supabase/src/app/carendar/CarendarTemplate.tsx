@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import {
   EventClickArg,
   EventContentArg,
@@ -24,6 +24,10 @@ export const CarendarTemplate = () => {
   // 選択された記録
   const [selectedRecord, setSelectedRecord] = useState<LearningRecord>();
 
+  // 記録サマリー
+  const [sumDate, setSumDate] = useState<number>(0);
+  const [sumTime, setSumTime] = useState<number>(0);
+
   // モーダルのモード
   const [operationModeType, setOperationModeType] = useState<OperationModeType>(
     OperationModeType.Add
@@ -40,6 +44,21 @@ export const CarendarTemplate = () => {
   const getLearningRecords = async () => {
     const learningRecords = await getAllLearningRecords();
     setLearningRecords(learningRecords);
+
+    setLearningRecordSummary(learningRecords);
+  };
+
+  const setLearningRecordSummary = (records: LearningRecord[]) => {
+    const uniqueDates = new Set<string>();
+    let timeSum: number = 0;
+
+    records.forEach((record) => {
+      uniqueDates.add(record.date);
+      timeSum += record.time;
+    });
+
+    setSumDate(uniqueDates.size);
+    setSumTime(timeSum);
   };
 
   // 記録リストをeventオブジェクトに変換
@@ -106,6 +125,32 @@ export const CarendarTemplate = () => {
 
   return (
     <>
+      {/* <Box m={2} p={2} borderRadius="md">
+        <Text fontSize="xl" mb={1}>{`学習日数：${sumDate}日`}</Text>
+        <Text fontSize="xl">{`学習時間：${sumTime}分`}</Text>
+      </Box> */}
+      <Box p={4}>
+        <Flex justifyContent="space-evenly">
+          <Box textAlign="center">
+            <Text fontSize="sm" mb={2}>
+              学習日数
+            </Text>
+            <Text fontSize="3xl" fontWeight="bold">
+              {sumDate}
+            </Text>
+            <Text fontSize="lg">日</Text>
+          </Box>
+          <Box textAlign="center">
+            <Text fontSize="sm" mb={2}>
+              学習時間
+            </Text>
+            <Text fontSize="3xl" fontWeight="bold">
+              {sumTime}
+            </Text>
+            <Text fontSize="lg">時間</Text>
+          </Box>
+        </Flex>
+      </Box>
       <FullCalendar
         locale="ja"
         plugins={[dayGridPlugin, interactionPlugin, listPlugin]}
