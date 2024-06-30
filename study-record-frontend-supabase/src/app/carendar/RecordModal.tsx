@@ -11,6 +11,11 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   Select,
   Stack,
 } from "@chakra-ui/react";
@@ -76,10 +81,10 @@ export const RecordModal = (props: Props) => {
   }
 
   // 時間テキスト変更
-  function onChangeTime(e: ChangeEvent<HTMLInputElement>) {
-    setTime(e.target.valueAsNumber);
-    console.debug(e.target.valueAsNumber);
-  }
+  const onChangeTime = (valueAsString: string, valueAsNumber: number) => {
+    setTime(valueAsNumber);
+    console.debug(valueAsNumber);
+  };
 
   // 保存ボタン押下
   const onClickSave = async () => {
@@ -184,7 +189,18 @@ export const RecordModal = (props: Props) => {
             </FormControl>
             <FormControl>
               <FormLabel>時間</FormLabel>
-              <Input type="number" onChange={onChangeTime} value={time} />
+              <NumberInput
+                step={10}
+                onChange={onChangeTime}
+                value={time}
+                min={0}
+              >
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
             </FormControl>
           </Stack>
         </ModalBody>

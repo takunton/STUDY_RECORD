@@ -56,7 +56,7 @@ export const CarendarTemplate = () => {
   const renderEventContent = (eventInfo: EventContentArg) => {
     return (
       <div style={{ whiteSpace: "pre-wrap" }}>
-        {`学習内容：${eventInfo.event.extendedProps.learningContent}\n学習時間：${eventInfo?.event.extendedProps.time}分`}
+        {`${eventInfo.event.extendedProps.learningContent}：${eventInfo?.event.extendedProps.time}分`}
       </div>
     );
   };

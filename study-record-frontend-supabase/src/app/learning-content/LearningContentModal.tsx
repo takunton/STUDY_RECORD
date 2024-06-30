@@ -8,6 +8,11 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   Stack,
 } from "@chakra-ui/react";
 import { PrimaryButton } from "../../_components/PrimaryButton";
@@ -49,9 +54,9 @@ export const LearningContentModal = (props: Props) => {
   }, [selectedLearningContent]);
 
   // 表示順テキスト変更
-  const onChangeSeq = (e: ChangeEvent<HTMLInputElement>) => {
-    setSeq(Number(e.target.valueAsNumber));
-    console.debug(e.target.valueAsNumber);
+  const onChangeSeq = (valueAsString: string, valueAsNumber: number) => {
+    setSeq(valueAsNumber);
+    console.debug(valueAsNumber);
   };
 
   // 学習内容テキスト変更
@@ -147,12 +152,18 @@ export const LearningContentModal = (props: Props) => {
           <Stack spacing={4}>
             <FormControl>
               <FormLabel>表示順</FormLabel>
-              <Input
-                isReadOnly={operationModeType === OperationModeType.Delete}
-                type="number"
+              <NumberInput
                 onChange={onChangeSeq}
                 value={seq}
-              />
+                isReadOnly={operationModeType === OperationModeType.Delete}
+                min={0}
+              >
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
             </FormControl>
             <FormControl>
               <FormLabel>学習内容</FormLabel>

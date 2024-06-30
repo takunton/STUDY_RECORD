@@ -33,7 +33,6 @@ export const Layout = () => {
 
   // ログアウト選択
   const handleLogout = () => {
-    alert("ログアウトします");
     logout();
     navigate("/login");
   };
