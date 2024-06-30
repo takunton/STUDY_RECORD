@@ -89,6 +89,48 @@ export const getAllLearningRecords = async (): Promise<LearningRecord[]> => {
   return LearningRecords;
 };
 
+export const getLearningRecordsByYm = async (
+  ym: string
+): Promise<LearningRecord[]> => {
+  const { data, error } = await supabase
+    .from("learning_record")
+    .select(
+      `
+    id,
+    date,
+    learning_content (
+      id,
+      seq,
+      content_name
+    ),
+    time
+    `
+    )
+    .ilike("date", `${ym}%`)
+    .eq("user_id", getLoginInfo().id);
+
+  if (error) {
+    console.error("Error fetching learning_records:", error);
+    return [];
+  }
+
+  // 型変換
+  const LearningRecords: LearningRecord[] =
+    data?.map((learningRecordData: any) => ({
+      id: learningRecordData.id,
+      user_id: learningRecordData.user_id,
+      date: learningRecordData.date,
+      learning_content: {
+        id: learningRecordData.learning_content.id,
+        seq: learningRecordData.learning_content.seq,
+        content_name: learningRecordData.learning_content.content_name,
+      },
+      time: learningRecordData.time,
+    })) || [];
+
+  return LearningRecords;
+};
+
 export const insertLearningRecord = async (
   newLearningRecord: LearningRecord
 ): Promise<LearningRecord> => {

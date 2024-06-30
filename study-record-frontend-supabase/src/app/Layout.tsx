@@ -3,12 +3,10 @@ import {
   Button,
   Flex,
   Heading,
-  Link,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
-  Text,
 } from "@chakra-ui/react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { getLoginInfo } from "../_hooks/useLoginInfo";

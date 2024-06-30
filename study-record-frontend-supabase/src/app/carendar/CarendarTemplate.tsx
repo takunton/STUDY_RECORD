@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Box, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import {
+  DatesSetArg,
   EventClickArg,
   EventContentArg,
   EventSourceInput,
@@ -13,11 +14,14 @@ import FullCalendar from "@fullcalendar/react";
 
 import { RecordModal } from "./RecordModal";
 import { LearningRecord } from "../../_types/LearningRecord";
-import { getAllLearningRecords } from "../../util/supabaseFunctions";
+import { getLearningRecordsByYm } from "../../util/supabaseFunctions";
 import { OperationModeType } from "../../_types/OperationModeType";
 import { getLoginInfo } from "../../_hooks/useLoginInfo";
 
 export const CarendarTemplate = () => {
+  // 表示中のカレンダー年月
+  const [carendarYM, setCarendarYM] = useState<string>("");
+
   // 記録リスト
   const [learningRecords, setLearningRecords] = useState<LearningRecord[]>([]);
 
@@ -36,16 +40,26 @@ export const CarendarTemplate = () => {
   // モーダルの状態
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  // 記録リストを初期化
-  useEffect(() => {
-    getLearningRecords();
+  const getLearningRecords = useCallback(async (ym: string) => {
+    const learningRecords = await getLearningRecordsByYm(ym);
+    setLearningRecords(learningRecords);
+    setLearningRecordSummary(learningRecords);
   }, []);
 
-  const getLearningRecords = async () => {
-    const learningRecords = await getAllLearningRecords();
-    setLearningRecords(learningRecords);
+  // 記録リストを初期化
+  useEffect(() => {
+    getLearningRecords(carendarYM);
+  }, [carendarYM, getLearningRecords]);
 
-    setLearningRecordSummary(learningRecords);
+  const handleDatesSet = (arg: DatesSetArg) => {
+    const currentData = arg.view.currentStart;
+    const year = currentData.getFullYear();
+    const month = String(currentData.getMonth() + 1).padStart(2, "0"); // 月は0から始まるので+1
+
+    const ym = `${year}-${month}`;
+    console.log(ym);
+
+    setCarendarYM(ym);
   };
 
   const setLearningRecordSummary = (records: LearningRecord[]) => {
@@ -119,16 +133,12 @@ export const CarendarTemplate = () => {
 
   // モーダルを閉じるときにデータを再取得
   const onCloseRecordModal = () => {
-    getLearningRecords();
+    getLearningRecords(carendarYM);
     onClose();
   };
 
   return (
     <>
-      {/* <Box m={2} p={2} borderRadius="md">
-        <Text fontSize="xl" mb={1}>{`学習日数：${sumDate}日`}</Text>
-        <Text fontSize="xl">{`学習時間：${sumTime}分`}</Text>
-      </Box> */}
       <Box p={4}>
         <Flex justifyContent="space-evenly">
           <Box textAlign="center">
@@ -163,6 +173,7 @@ export const CarendarTemplate = () => {
         dateClick={handleDateClick}
         eventContent={renderEventContent}
         initialView="dayGridMonth"
+        datesSet={handleDatesSet}
         height="auto"
         eventClick={eventClick}
         events={events}
