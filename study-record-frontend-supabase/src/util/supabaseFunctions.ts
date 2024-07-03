@@ -92,6 +92,8 @@ export const getAllLearningRecords = async (): Promise<LearningRecord[]> => {
 export const getLearningRecordsByYm = async (
   ym: string
 ): Promise<LearningRecord[]> => {
+  // 引数の空チェックにより、条件なしでのデータ取得を防止
+  // FullCarendarを使用している呼出側の再描画イベント発火順序が（年月あり⇒年月なし）となってしまうため、不正なデータ取得を防止する目的
   if (ym === "") {
     return [];
   }
