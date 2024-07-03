@@ -20,7 +20,7 @@ import { getLoginInfo } from "../../_hooks/useLoginInfo";
 
 export const CarendarTemplate = () => {
   // 表示中のカレンダー年月
-  const [carendarYM, setCarendarYM] = useState<string>("");
+  const [calendarYM, setCalendarYM] = useState<string>("");
 
   // 記録リスト
   const [learningRecords, setLearningRecords] = useState<LearningRecord[]>([]);
@@ -45,14 +45,25 @@ export const CarendarTemplate = () => {
 
   const getLearningRecords = useCallback(async (ym: string) => {
     const learningRecords = await getLearningRecordsByYm(ym);
+    console.log(`取得した年月:${ym}`);
+    console.log(`取得したデータ:${learningRecords}`);
     setLearningRecords(learningRecords);
     setLearningRecordSummary(learningRecords);
   }, []);
 
   // 記録リストを初期化
   useEffect(() => {
-    getLearningRecords(carendarYM);
-  }, [carendarYM, getLearningRecords]);
+    getLearningRecords(calendarYM);
+  }, [calendarYM, getLearningRecords]);
+
+  // 初期表示時の年月を設定
+  useEffect(() => {
+    const initialDate = new Date();
+    const year = initialDate.getFullYear();
+    const month = String(initialDate.getMonth() + 1).padStart(2, "0"); // 月は0から始まるので+1
+    const ym = `${year}-${month}`;
+    setCalendarYM(ym);
+  }, []);
 
   const handleDatesSet = (arg: DatesSetArg) => {
     const currentData = arg.view.currentStart;
@@ -62,7 +73,7 @@ export const CarendarTemplate = () => {
     const ym = `${year}-${month}`;
     console.log(ym);
 
-    setCarendarYM(ym);
+    setCalendarYM(ym);
   };
 
   const setLearningRecordSummary = (records: LearningRecord[]) => {
@@ -144,7 +155,7 @@ export const CarendarTemplate = () => {
 
   // モーダルを閉じるときにデータを再取得
   const onCloseRecordModal = () => {
-    getLearningRecords(carendarYM);
+    getLearningRecords(calendarYM);
     onClose();
   };
 
@@ -195,6 +206,7 @@ export const CarendarTemplate = () => {
         dateClick={handleDateClick}
         eventContent={renderEventContent}
         initialView="dayGridMonth"
+        initialDate={new Date()}
         datesSet={handleDatesSet}
         height="auto"
         eventClick={eventClick}

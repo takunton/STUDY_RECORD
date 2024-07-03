@@ -92,6 +92,10 @@ export const getAllLearningRecords = async (): Promise<LearningRecord[]> => {
 export const getLearningRecordsByYm = async (
   ym: string
 ): Promise<LearningRecord[]> => {
+  if (ym === "") {
+    return [];
+  }
+
   const { data, error } = await supabase
     .from("learning_record")
     .select(

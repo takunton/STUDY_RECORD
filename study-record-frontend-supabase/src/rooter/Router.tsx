@@ -42,7 +42,6 @@ export const Router = memo(() => {
 
   return (
     <Routes>
-      <Route path="/" element={<LoginTemplate />}></Route>
       <Route path="/login" element={<Auth />}></Route>
       <Route element={<PrivateRoute />}>
         <Route path="/home" element={<Layout />}>
