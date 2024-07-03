@@ -54,16 +54,8 @@ export const CarendarTemplate = () => {
   // 記録リストを初期化
   useEffect(() => {
     getLearningRecords(calendarYM);
+    console.log("記録リスト初期化");
   }, [calendarYM, getLearningRecords]);
-
-  // 初期表示時の年月を設定
-  useEffect(() => {
-    const initialDate = new Date();
-    const year = initialDate.getFullYear();
-    const month = String(initialDate.getMonth() + 1).padStart(2, "0"); // 月は0から始まるので+1
-    const ym = `${year}-${month}`;
-    setCalendarYM(ym);
-  }, []);
 
   const handleDatesSet = (arg: DatesSetArg) => {
     const currentData = arg.view.currentStart;
