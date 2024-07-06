@@ -14,6 +14,7 @@ import {
   NumberInputField,
   NumberInputStepper,
   Stack,
+  useToast,
 } from "@chakra-ui/react";
 import { PrimaryButton } from "../../_components/PrimaryButton";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -25,6 +26,7 @@ import {
 } from "../../util/supabaseFunctions";
 import {
   GenerateOperationModeTypeHeader,
+  GetOperationFinishMessage,
   OperationModeType,
 } from "../../_types/OperationModeType";
 import { uuidv7 } from "uuidv7";
@@ -38,6 +40,8 @@ type Props = {
 
 export const LearningContentModal = (props: Props) => {
   const { isOpen, operationModeType, selectedLearningContent, onClose } = props;
+
+  const toast = useToast();
 
   // 表示順
   const [seq, setSeq] = useState<number>(0);
@@ -77,6 +81,14 @@ export const LearningContentModal = (props: Props) => {
       case OperationModeType.Delete:
         await deletes();
     }
+
+    // 保存メッセージ表示
+    toast({
+      title: GetOperationFinishMessage(operationModeType),
+      status: "success",
+      position: "top",
+      isClosable: true,
+    });
 
     // 画面初期化
     setSeq(0);
