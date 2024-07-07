@@ -1,0 +1,4 @@
+/* App.css もしくは index.css などのグローバルCSSファイル */
+.fc-event:hover {
+  cursor: pointer;
+}
