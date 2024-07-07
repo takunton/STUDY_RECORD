@@ -18,6 +18,7 @@ import {
   NumberInputStepper,
   Select,
   Stack,
+  useToast,
 } from "@chakra-ui/react";
 import { PrimaryButton } from "../../_components/PrimaryButton";
 import { useLearningContent } from "../../_hooks/useLearningContent";
@@ -25,6 +26,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { LearningRecord } from "../../_types/LearningRecord";
 import {
   GenerateOperationModeTypeHeader,
+  GetOperationFinishMessage,
   OperationModeType,
 } from "../../_types/OperationModeType";
 import { LearningContent } from "../../_types/LearningContent";
@@ -46,6 +48,8 @@ type Props = {
 
 export const RecordModal = (props: Props) => {
   const { isOpen, operationModeType, selectedRecord, onClose } = props;
+
+  const toast = useToast();
 
   // 内容リスト
   const { learningContents } = useLearningContent();
@@ -86,6 +90,17 @@ export const RecordModal = (props: Props) => {
     console.debug(valueAsNumber);
   };
 
+  // 時間テキスト変更
+  const openToast = (operationModeType: OperationModeType) => {
+    // 保存メッセージ表示
+    toast({
+      title: GetOperationFinishMessage(operationModeType),
+      status: "success",
+      position: "top",
+      isClosable: true,
+    });
+  };
+
   // 保存ボタン押下
   const onClickSave = async () => {
     // 学習内容の取得
@@ -100,6 +115,8 @@ export const RecordModal = (props: Props) => {
       case OperationModeType.Edit:
         await update(targetLearningContent!);
     }
+
+    openToast(operationModeType);
 
     onClose();
   };
@@ -150,6 +167,8 @@ export const RecordModal = (props: Props) => {
     } catch (error) {
       console.error("Error deleting learning_content:", error);
     }
+
+    openToast(OperationModeType.Delete);
 
     onClose();
   };
