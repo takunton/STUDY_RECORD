@@ -1,7 +1,5 @@
 import { memo, useEffect, useState } from "react";
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
-
-import { LoginTemplate } from "../app/login/LoginTemplate";
 import { CarendarTemplate } from "../app/carendar/CarendarTemplate";
 import { LearningContentTemplate } from "../app/learning-content/LearningContentTemplate";
 import { Page404 } from "../app/page404/Page404";
