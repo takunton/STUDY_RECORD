@@ -1,7 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 
 import theme from "./theme/theme";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Router } from "./rooter/Router";
 import { useEffect } from "react";
 
@@ -18,7 +18,10 @@ export const App = () => {
     <>
       <ChakraProvider theme={theme}>
         <BrowserRouter>
-          <Router />
+          <Routes>
+            <Route path="/*" element={<Router />} />
+            <Route path="/" element={<Navigate to="/login" replace />} />
+          </Routes>
         </BrowserRouter>
       </ChakraProvider>
     </>
