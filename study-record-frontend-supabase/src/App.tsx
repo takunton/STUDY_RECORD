@@ -20,6 +20,7 @@ export const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/*" element={<Router />} />
+            {/*ルートページが参照された場合、loginにリダイレクト*/}
             <Route path="/" element={<Navigate to="/login" replace />} />
           </Routes>
         </BrowserRouter>
