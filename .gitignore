@@ -485,3 +485,6 @@ $RECYCLE.BIN/
 
 
 *.pyc
+
+# Build directory
+build/
