@@ -489,3 +489,4 @@ $RECYCLE.BIN/
 # Build directory
 build/
 .next/
+out/
