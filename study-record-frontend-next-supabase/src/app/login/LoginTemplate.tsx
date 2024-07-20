@@ -1,15 +1,17 @@
+"use client";
+
 import { useState } from "react";
 import { Box, Flex, Heading, Input, Spinner, Stack } from "@chakra-ui/react";
 import { login } from "../../util/supabaseFunctions";
 import { PrimaryButton } from "../../_components/PrimaryButton";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
-export const Auth = () => {
+export default function LoginTemplate() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const onClickLogin = async () => {
     setIsLoading(true);
@@ -17,7 +19,7 @@ export const Auth = () => {
       const isError = await login(email, password);
 
       if (!isError) {
-        navigate("/home");
+        router.push("/learning-record");
       }
     } finally {
       setIsLoading(false);
@@ -64,4 +66,4 @@ export const Auth = () => {
       </Box>
     </Flex>
   );
-};
+}
