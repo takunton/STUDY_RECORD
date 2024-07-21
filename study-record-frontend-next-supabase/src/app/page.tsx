@@ -1,16 +1,14 @@
 "use client";
 
-import { PrimaryButton } from "@/_components/PrimaryButton";
-import { Link } from "@chakra-ui/next-js";
-import { Button } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Page() {
-  function onClickTest() {
-    alert("ボタンが押されました");
-  }
-  return (
-    <>
-      <PrimaryButton onClick={onClickTest}>テスト</PrimaryButton>
-    </>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace("/login"); // リダイレクト先のパス
+  }, [router]);
+
+  return null; // このコンポーネントは何もレンダリングしない
 }
