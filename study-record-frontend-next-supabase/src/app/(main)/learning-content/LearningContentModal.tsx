@@ -18,19 +18,19 @@ import {
   Stack,
   useToast,
 } from "@chakra-ui/react";
-import { PrimaryButton } from "../../_components/PrimaryButton";
+import { PrimaryButton } from "../../../_components/PrimaryButton";
 import { ChangeEvent, useEffect, useState } from "react";
-import { LearningContent } from "../../_types/LearningContent";
+import { LearningContent } from "../../../_types/LearningContent";
 import {
   deleteLearningContent,
   insertLearningContent,
   updateLearningContent,
-} from "../../util/supabaseFunctions";
+} from "../../../util/supabaseFunctions";
 import {
   GenerateOperationModeTypeHeader,
   GetOperationFinishMessage,
   OperationModeType,
-} from "../../_types/OperationModeType";
+} from "../../../_types/OperationModeType";
 import { uuidv7 } from "uuidv7";
 
 type Props = {

@@ -15,11 +15,10 @@ import { DateClickArg } from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 
 import { RecordModal } from "./RecordModal";
-import { LearningRecord } from "../../_types/LearningRecord";
-import { getLearningRecordsByYm } from "../../util/supabaseFunctions";
-import { OperationModeType } from "../../_types/OperationModeType";
-import { getLoginInfo } from "../../_hooks/useLoginInfo";
-import MenuLayout from "../menuLayout";
+import { LearningRecord } from "../../../_types/LearningRecord";
+import { getLearningRecordsByYm } from "../../../util/supabaseFunctions";
+import { OperationModeType } from "../../../_types/OperationModeType";
+import { getLoginInfo } from "../../../_hooks/useLoginInfo";
 
 export default function LearningRecordPage() {
   // 表示中のカレンダー年月
@@ -155,7 +154,7 @@ export default function LearningRecordPage() {
   };
 
   return (
-    <MenuLayout>
+    <>
       <Box p={4}>
         <Flex justifyContent="space-evenly">
           <Box textAlign="center">
@@ -213,6 +212,6 @@ export default function LearningRecordPage() {
         selectedRecord={selectedRecord!}
         onClose={onCloseRecordModal}
       ></RecordModal>
-    </MenuLayout>
+    </>
   );
 }

@@ -12,13 +12,12 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
-import { PrimaryButton } from "../../_components/PrimaryButton";
-import { LearningContent } from "../../_types/LearningContent";
+import { PrimaryButton } from "../../../_components/PrimaryButton";
+import { LearningContent } from "../../../_types/LearningContent";
 import { LearningContentModal } from "./LearningContentModal";
-import { getAllLearningContents } from "../../util/supabaseFunctions";
-import { OperationModeType } from "../../_types/OperationModeType";
-import { DeleteButton } from "../../_components/DeleteButton";
-import MenuLayout from "../menuLayout";
+import { getAllLearningContents } from "../../../util/supabaseFunctions";
+import { OperationModeType } from "../../../_types/OperationModeType";
+import { DeleteButton } from "../../../_components/DeleteButton";
 
 export default function LearningContentTemplate() {
   // 内容リスト
@@ -83,7 +82,7 @@ export default function LearningContentTemplate() {
   };
 
   return (
-    <MenuLayout>
+    <>
       <PrimaryButton onClick={onClickInsert}>新規</PrimaryButton>
       <TableContainer mt={30}>
         <Table variant="simple">
@@ -123,6 +122,6 @@ export default function LearningContentTemplate() {
         selectedLearningContent={selectedLearningContent}
         onClose={handleModalClose}
       ></LearningContentModal>
-    </MenuLayout>
+    </>
   );
 }

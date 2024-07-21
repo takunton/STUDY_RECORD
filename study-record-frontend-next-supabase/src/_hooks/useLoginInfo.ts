@@ -6,6 +6,7 @@ export const setLoginInfo = (value: LoginInfo) => {
 };
 
 export const getLoginInfo = (): LoginInfo => {
+  console.log(`user_id:${localStorage.getItem("id")}`);
   return {
     id: localStorage.getItem("id") ?? "",
     email: localStorage.getItem("email") ?? "",

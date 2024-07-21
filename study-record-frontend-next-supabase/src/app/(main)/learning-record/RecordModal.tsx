@@ -21,23 +21,23 @@ import {
   Stack,
   useToast,
 } from "@chakra-ui/react";
-import { PrimaryButton } from "../../_components/PrimaryButton";
-import { useLearningContent } from "../../_hooks/useLearningContent";
+import { PrimaryButton } from "../../../_components/PrimaryButton";
+import { useLearningContent } from "../../../_hooks/useLearningContent";
 import { ChangeEvent, useEffect, useState } from "react";
-import { LearningRecord } from "../../_types/LearningRecord";
+import { LearningRecord } from "../../../_types/LearningRecord";
 import {
   GenerateOperationModeTypeHeader,
   GetOperationFinishMessage,
   OperationModeType,
-} from "../../_types/OperationModeType";
-import { LearningContent } from "../../_types/LearningContent";
+} from "../../../_types/OperationModeType";
+import { LearningContent } from "../../../_types/LearningContent";
 import {
   deleteLearningRecord,
   insertLearningRecord,
   updateLearningRecord,
-} from "../../util/supabaseFunctions";
-import { DeleteButton } from "../../_components/DeleteButton";
-import { getLoginInfo } from "../../_hooks/useLoginInfo";
+} from "../../../util/supabaseFunctions";
+import { DeleteButton } from "../../../_components/DeleteButton";
+import { getLoginInfo } from "../../../_hooks/useLoginInfo";
 import { uuidv7 } from "uuidv7";
 
 type Props = {

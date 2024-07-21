@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Box, Flex, Heading, Input, Spinner, Stack } from "@chakra-ui/react";
-import { login } from "../../util/supabaseFunctions";
-import { PrimaryButton } from "../../_components/PrimaryButton";
+import { login } from "../../../util/supabaseFunctions";
+import { PrimaryButton } from "../../../_components/PrimaryButton";
 import { useRouter } from "next/navigation";
 
 export default function LoginTemplate() {
