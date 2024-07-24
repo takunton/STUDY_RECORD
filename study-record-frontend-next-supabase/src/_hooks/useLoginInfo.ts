@@ -1,5 +1,6 @@
 import { LoginInfo } from "../_types/LoginInfo";
 
+// TODO: ローカルストレージからセッションストレージまたはcookieに変更
 export const setLoginInfo = (value: LoginInfo) => {
   localStorage.setItem("id", value.id);
   localStorage.setItem("email", value.email);
