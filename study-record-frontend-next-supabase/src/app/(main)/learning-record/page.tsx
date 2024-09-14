@@ -188,24 +188,26 @@ export default function LearningRecordPage() {
           ))}
         </Flex>
       </Box>
-      <FullCalendar
-        locale="ja"
-        plugins={[dayGridPlugin, interactionPlugin, listPlugin]}
-        businessHours={{ daysOfWeek: [1, 2, 3, 4, 5] }}
-        headerToolbar={{
-          left: "prev,next today",
-          center: "title",
-          right: "dayGridMonth listWeek",
-        }}
-        dateClick={handleDateClick}
-        eventContent={renderEventContent}
-        initialView="dayGridMonth"
-        initialDate={new Date()}
-        datesSet={handleDatesSet}
-        height="auto"
-        eventClick={eventClick}
-        events={events}
-      />
+      <Box p={4} maxW="1200px" mx="auto">
+        <FullCalendar
+          locale="ja"
+          plugins={[dayGridPlugin, interactionPlugin, listPlugin]}
+          businessHours={{ daysOfWeek: [1, 2, 3, 4, 5] }}
+          headerToolbar={{
+            left: "prev",
+            center: "title",
+            right: "next today",
+          }}
+          dateClick={handleDateClick}
+          eventContent={renderEventContent}
+          initialView="dayGridMonth"
+          initialDate={new Date()}
+          datesSet={handleDatesSet}
+          height="auto"
+          eventClick={eventClick}
+          events={events}
+        />
+      </Box>
       <RecordModal
         isOpen={isOpen}
         operationModeType={operationModeType}
