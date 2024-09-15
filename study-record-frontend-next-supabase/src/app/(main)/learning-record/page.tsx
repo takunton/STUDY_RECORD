@@ -18,7 +18,7 @@ import { RecordModal } from "./RecordModal";
 import { LearningRecord } from "../../../_types/LearningRecord";
 import { getLearningRecordsByYm } from "../../../util/supabaseFunctions";
 import { OperationModeType } from "../../../_types/OperationModeType";
-import { getLoginInfo } from "../../../_hooks/useLoginInfo";
+import { useLoginInfo } from "@/_hooks/useLoginInfo";
 
 export default function LearningRecordPage() {
   // 表示中のカレンダー年月
@@ -42,22 +42,29 @@ export default function LearningRecordPage() {
     OperationModeType.Add
   );
 
+  // ユーザ情報
+  const { loginInfo } = useLoginInfo();
+
   // モーダルの状態
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const getLearningRecords = useCallback(async (ym: string) => {
-    const learningRecords = await getLearningRecordsByYm(ym);
-    console.log(`取得した年月:${ym}`);
+  const getLearningRecords = useCallback(async () => {
+    if (!loginInfo || !loginInfo.id || calendarYM === "") return; // 検索条件が設定されるまでは早期リターン
+
+    const userId = loginInfo?.id ?? "";
+    const learningRecords = await getLearningRecordsByYm(calendarYM, userId);
+    console.log(`取得した年月:${calendarYM}`);
+    console.log(`取得したユーザId:${userId}`);
     console.log(`取得したデータ:${learningRecords}`);
     setLearningRecords(learningRecords);
     setLearningRecordSummary(learningRecords);
-  }, []);
+  }, [loginInfo, calendarYM]);
 
   // 記録リストを初期化
   useEffect(() => {
-    getLearningRecords(calendarYM);
+    getLearningRecords();
     console.log("記録リスト初期化");
-  }, [calendarYM, getLearningRecords]);
+  }, [calendarYM, loginInfo, getLearningRecords]);
 
   const handleDatesSet = (arg: DatesSetArg) => {
     const currentData = arg.view.currentStart;
@@ -121,7 +128,7 @@ export default function LearningRecordPage() {
 
     const newLearningRecord: LearningRecord = {
       id: "",
-      user_id: getLoginInfo().id,
+      user_id: loginInfo?.id ?? "",
       date: formatDate(arg.date),
       learning_content: { id: "", seq: -1, content_name: "" },
       time: 0,
@@ -149,7 +156,7 @@ export default function LearningRecordPage() {
 
   // モーダルを閉じるときにデータを再取得
   const onCloseRecordModal = () => {
-    getLearningRecords(calendarYM);
+    getLearningRecords();
     onClose();
   };
 

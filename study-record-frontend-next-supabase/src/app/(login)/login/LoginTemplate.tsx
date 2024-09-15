@@ -5,20 +5,24 @@ import { Box, Flex, Heading, Input, Spinner, Stack } from "@chakra-ui/react";
 import { login } from "../../../util/supabaseFunctions";
 import { PrimaryButton } from "../../../_components/PrimaryButton";
 import { useRouter } from "next/navigation";
+import { useLoginInfo } from "@/_hooks/useLoginInfo";
 
 export default function LoginTemplate() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { setLoginInfo } = useLoginInfo();
 
   const router = useRouter();
 
   const onClickLogin = async () => {
     setIsLoading(true);
     try {
-      const isError = await login(email, password);
+      const loginInfo = await login(email, password);
 
-      if (!isError) {
+      if (loginInfo !== null) {
+        // セッションストレージにユーザ情報を保存
+        setLoginInfo(loginInfo);
         router.push("/learning-record");
       }
     } finally {

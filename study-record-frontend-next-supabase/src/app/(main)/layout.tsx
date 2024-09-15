@@ -3,7 +3,6 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getLoginInfo } from "@/_hooks/useLoginInfo";
 import { logout } from "@/util/supabaseFunctions";
 import {
   Box,
@@ -16,6 +15,7 @@ import {
   MenuList,
   Spinner,
 } from "@chakra-ui/react";
+import { useLoginInfo } from "@/_hooks/useLoginInfo";
 
 export default function MainLayout({
   children,
@@ -26,10 +26,10 @@ export default function MainLayout({
   const [isLoginMenuOpen, setLoginMenuOpen] = useState(false);
   const [isMaintenanceMenuOpen, setMaintenanceMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const { loginInfo, deleteLoginInfo } = useLoginInfo();
 
   useEffect(() => {
-    const loginInfo = getLoginInfo();
-    setIsLoggedIn(loginInfo.id !== "");
+    setIsLoggedIn(loginInfo?.id !== "");
     console.log(`ログイン情報：${loginInfo}`);
   }, []);
 
@@ -52,8 +52,14 @@ export default function MainLayout({
   }
 
   // ログアウト選択
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    const isError = await logout();
+    if (isError) {
+      // TODO: ログアウトエラー処理記載
+    }
+    // セッションストレージからユーザ情報を削除
+    deleteLoginInfo();
+
     router.push("/login");
   };
 
@@ -118,7 +124,7 @@ export default function MainLayout({
               onMouseLeave={() => setLoginMenuOpen(false)}
               onClick={() => setLoginMenuOpen(!isLoginMenuOpen)}
             >
-              {getLoginInfo().email}
+              {loginInfo?.email}
             </MenuButton>
             <MenuList
               bg="black"

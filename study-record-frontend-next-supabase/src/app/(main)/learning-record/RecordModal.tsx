@@ -37,8 +37,8 @@ import {
   updateLearningRecord,
 } from "../../../util/supabaseFunctions";
 import { DeleteButton } from "../../../_components/DeleteButton";
-import { getLoginInfo } from "../../../_hooks/useLoginInfo";
 import { uuidv7 } from "uuidv7";
+import { useLoginInfo } from "@/_hooks/useLoginInfo";
 
 type Props = {
   isOpen: boolean;
@@ -63,6 +63,9 @@ export const RecordModal = (props: Props) => {
 
   // 時間
   const [time, setTime] = useState<number>(0);
+
+  // ユーザ情報
+  const { loginInfo } = useLoginInfo();
 
   // stateの初期化
   useEffect(() => {
@@ -127,7 +130,7 @@ export const RecordModal = (props: Props) => {
     // 追加する学習記録を生成
     const newLearningRecord: LearningRecord = {
       id: uuidv7(),
-      user_id: getLoginInfo().id,
+      user_id: loginInfo!.id,
       date: date,
       learning_content: targetLearningContent,
       time: time,

@@ -1,18 +1,14 @@
 import { LearningContent } from "../_types/LearningContent";
 import { LearningRecord } from "../_types/LearningRecord";
 import { supabase } from "./supabase";
-import {
-  getLoginInfo,
-  removeLoginInfo,
-  setLoginInfo,
-} from "../_hooks/useLoginInfo";
 import { LoginInfo } from "../_types/LoginInfo";
 import { UserResponse } from "@supabase/supabase-js";
 
 export const login = async (
   email: string,
   password: string
-): Promise<boolean> => {
+): Promise<LoginInfo | null> => {
+  // ログインの実行
   const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -20,9 +16,10 @@ export const login = async (
 
   if (error) {
     alert(error);
-    return true;
+    return null;
   }
 
+  // ユーザ情報を取得
   const userData: UserResponse = await supabase.auth.getUser();
   console.log(userData);
 
@@ -31,73 +28,32 @@ export const login = async (
     email: userData.data.user?.email ?? "",
   };
 
-  // ローカルストレージにログインを保存
-  setLoginInfo(loginInfo);
-  return false;
+  // ログイン情報をセッションストレージに保存
+  // setLoginInfo(loginInfo);
+  return loginInfo;
 };
 
-export const logout = async () => {
+export const logout = async (): Promise<boolean> => {
+  //
+  // const { deleteLoginInfo } = useLoginInfo();
+
   const { error } = await supabase.auth.signOut();
 
   if (error) {
     alert("ログアウトに失敗しました");
+    return true;
   }
 
   const userData: UserResponse = await supabase.auth.getUser();
   console.log(userData);
 
-  // ローカルストレージのログインを削除
-  removeLoginInfo();
-};
-
-export const getAllLearningRecords = async (): Promise<LearningRecord[]> => {
-  const { data, error } = await supabase
-    .from("learning_record")
-    .select(
-      `
-    id,
-    date,
-    learning_content (
-      id,
-      seq,
-      content_name
-    ),
-    time
-    `
-    )
-    .match({ user_id: getLoginInfo().id });
-
-  if (error) {
-    console.error("Error fetching learning_records:", error);
-    return [];
-  }
-
-  // 型変換
-  const LearningRecords: LearningRecord[] =
-    data?.map((learningRecordData: any) => ({
-      id: learningRecordData.id,
-      user_id: learningRecordData.user_id,
-      date: learningRecordData.date,
-      learning_content: {
-        id: learningRecordData.learning_content.id,
-        seq: learningRecordData.learning_content.seq,
-        content_name: learningRecordData.learning_content.content_name,
-      },
-      time: learningRecordData.time,
-    })) || [];
-
-  return LearningRecords;
+  return false;
 };
 
 export const getLearningRecordsByYm = async (
-  ym: string
+  ym: string,
+  userId: string
 ): Promise<LearningRecord[]> => {
-  // 引数の空チェックにより、条件なしでのデータ取得を防止
-  // FullCarendarを使用している呼出側の再描画イベント発火順序が（年月あり⇒年月なし）となってしまうため、不正なデータ取得を防止する目的
-  if (ym === "") {
-    return [];
-  }
-
   const { data, error } = await supabase
     .from("learning_record")
     .select(
@@ -113,7 +69,7 @@ export const getLearningRecordsByYm = async (
     `
     )
     .ilike("date", `${ym}%`)
-    .eq("user_id", getLoginInfo().id);
+    .eq("user_id", userId);
 
   if (error) {
     console.error("Error fetching learning_records:", error);
